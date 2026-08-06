@@ -71,3 +71,11 @@ Results:
 This was almost identical to single-sentence recall, despite retrieving more than twice as much text. Fixed local windows did not meaningfully improve evidence recovery.
 
 The result suggests the issue may not simply be insufficient neighboring context. The retrieval unit may need to represent relationships between evidence rather than contiguous text.
+
+
+# After Oracle_sentence_retirval:
+1. Passage retrieval has good coverage but uses much more context.
+2. Sentence retrieval is compact but misses exact evidence.
+3. Fixed sentence windows add context without meaningfully improving recall.
+4. Weak rule-based decomposition produces no improvement.
+5. High-quality oracle reasoning units substantially improve exact sentence recall.
