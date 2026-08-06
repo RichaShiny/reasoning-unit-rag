@@ -1,3 +1,9 @@
+Experiment 1 (Completed)
+Compare passage retrieval vs. sentence retrieval.
+Result: Passage recall = 0.793, Sentence recall = 0.639.
+Key insight: Sentence retrieval is much more context-efficient but loses supporting evidence.
+
+
 # Experiment 001: Passage vs. Sentence Retrieval
 
 ## Date
@@ -39,3 +45,4 @@ The evaluation is not perfectly symmetric. Passage retrieval receives credit whe
 - Evaluate Top-K values such as 2, 5, 8, and 10.
 - Test small multi-sentence windows as an intermediate retrieval unit.
 - Inspect failure cases where passage retrieval succeeds but sentence retrieval fails.
+

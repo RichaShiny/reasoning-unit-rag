@@ -42,7 +42,7 @@ One thing I noticed while building this is that HotpotQA already provides the go
 - Experiment with retrieval units beyond individual sentences.
 
 ## August 6, 2026
-
+## Experiment 001
 Ran the first 100-question retrieval evaluation on HotpotQA.
 
 Passage retrieval had higher supporting-fact recall:
@@ -58,3 +58,16 @@ Sentence retrieval was much more compact:
 This was not the result I initially expected. Sentence retrieval reduced context substantially, but individual sentences may be too narrow to preserve the evidence needed for multi-hop reasoning.
 
 The next experiment should test sentence windows rather than jumping directly to a new reasoning-unit design.
+
+## Experiment 002
+
+Tested three-sentence retrieval windows.
+
+Results:
+
+- Three-sentence window recall: 0.642
+- Average context: 257.6 words
+
+This was almost identical to single-sentence recall, despite retrieving more than twice as much text. Fixed local windows did not meaningfully improve evidence recovery.
+
+The result suggests the issue may not simply be insufficient neighboring context. The retrieval unit may need to represent relationships between evidence rather than contiguous text.
