@@ -40,3 +40,21 @@ One thing I noticed while building this is that HotpotQA already provides the go
 - Evaluate both retrieval methods on a larger set of HotpotQA questions.
 - Measure how often each method retrieves the gold supporting facts.
 - Experiment with retrieval units beyond individual sentences.
+
+## August 6, 2026
+
+Ran the first 100-question retrieval evaluation on HotpotQA.
+
+Passage retrieval had higher supporting-fact recall:
+
+- Passage recall: 0.793
+- Sentence recall: 0.639
+
+Sentence retrieval was much more compact:
+
+- Passage context: 418.9 words
+- Sentence context: 123.1 words
+
+This was not the result I initially expected. Sentence retrieval reduced context substantially, but individual sentences may be too narrow to preserve the evidence needed for multi-hop reasoning.
+
+The next experiment should test sentence windows rather than jumping directly to a new reasoning-unit design.
