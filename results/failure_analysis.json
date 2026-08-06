@@ -1,0 +1,1234 @@
+[
+  {
+    "example_id": "5a85ea095542994775f606a8",
+    "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+    "answer": "Animorphs",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Animorphs",
+        "sentence_id": 0
+      },
+      {
+        "title": "Animorphs",
+        "sentence_id": 1
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 0
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 1
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 2
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Animorphs",
+        "sentence_id": 0
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 1
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 2
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.4,
+    "retrieved_passage_titles": [
+      "Victoria Hanley",
+      "The Hork-Bajir Chronicles",
+      "Animorphs",
+      "The Divide trilogy",
+      "Andre Norton Award"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "The Divide trilogy",
+        "sentence_id": 0,
+        "text": "The Divide trilogy. The Divide trilogy is a fantasy young adult novel trilogy by Elizabeth Kay, which takes place in an alternate universe."
+      },
+      {
+        "title": "The Hork-Bajir Chronicles",
+        "sentence_id": 0,
+        "text": "The Hork-Bajir Chronicles. The Hork-Bajir Chronicles is the second companion book to the \"Animorphs\" series, written by K. A. Applegate."
+      },
+      {
+        "title": "The Divide trilogy",
+        "sentence_id": 3,
+        "text": "The Divide trilogy. The books have been translated into French, German, Spanish, Finnish, Chinese, Japanese, Portuguese, Italian, Romanian and Dutch."
+      },
+      {
+        "title": "Animorphs",
+        "sentence_id": 1,
+        "text": "Animorphs. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives."
+      },
+      {
+        "title": "The Divide trilogy",
+        "sentence_id": 4,
+        "text": "The Divide trilogy. Interior illustrations are by Ted Dewan."
+      }
+    ]
+  },
+  {
+    "example_id": "5a87ab905542996e4f3088c1",
+    "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+    "answer": "3,677 seated",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Androscoggin Bank Colisée",
+        "sentence_id": 0
+      },
+      {
+        "title": "Lewiston Maineiacs",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Androscoggin Bank Colisée",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Lewiston Maineiacs",
+      "Dwyer Arena",
+      "Androscoggin Bank Colisée",
+      "Case Gym",
+      "Robins Center"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Lewiston Maineiacs",
+        "sentence_id": 1,
+        "text": "Lewiston Maineiacs. The team played its home games at the Androscoggin Bank Colisée."
+      },
+      {
+        "title": "Lewiston Maineiacs",
+        "sentence_id": 2,
+        "text": "Lewiston Maineiacs. They were the second QMJHL team in the United States, and the only one to play a full season."
+      },
+      {
+        "title": "Lewiston Maineiacs",
+        "sentence_id": 3,
+        "text": "Lewiston Maineiacs. They won the President's Cup in 2007."
+      },
+      {
+        "title": "Dwyer Arena",
+        "sentence_id": 1,
+        "text": "Dwyer Arena. The main rink can seat up to 1,400 people and is the home to the Niagara Purple Eagles men's ice hockey team, which plays in Atlantic Hockey."
+      },
+      {
+        "title": "Lewiston Maineiacs",
+        "sentence_id": 0,
+        "text": "Lewiston Maineiacs. The Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine."
+      }
+    ]
+  },
+  {
+    "example_id": "5a7bbb64554299042af8f7cc",
+    "question": "Who is older, Annie Morton or Terry Richardson?",
+    "answer": "Terry Richardson",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Annie Morton",
+        "sentence_id": 0
+      },
+      {
+        "title": "Annie Morton",
+        "sentence_id": 2
+      },
+      {
+        "title": "Terry Richardson",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Terry Richardson",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.6666666666666666,
+    "retrieved_passage_titles": [
+      "Annie Morton",
+      "Kenton Richardson",
+      "Lady Gaga x Terry Richardson",
+      "Terry Richardson",
+      "Madonna (book)"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Annie Morton",
+        "sentence_id": 0,
+        "text": "Annie Morton. Annie Morton (born October 8, 1970) is an American model born in Pennsylvania."
+      },
+      {
+        "title": "Annie Morton",
+        "sentence_id": 2,
+        "text": "Annie Morton. She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret."
+      },
+      {
+        "title": "Annie Morton",
+        "sentence_id": 3,
+        "text": "Annie Morton. A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare."
+      },
+      {
+        "title": "Annie Morton",
+        "sentence_id": 1,
+        "text": "Annie Morton. She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines."
+      },
+      {
+        "title": "Kenton Richardson",
+        "sentence_id": 0,
+        "text": "Kenton Richardson. Kenton Terry Richardson (born 26 July 1999) is an English professional footballer who plays as a defender for League Two side Hartlepool United."
+      }
+    ]
+  },
+  {
+    "example_id": "5ab56e32554299637185c594",
+    "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+    "answer": "no",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "888 7th Avenue",
+        "sentence_id": 2
+      },
+      {
+        "title": "Random House Tower",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "888 7th Avenue",
+        "sentence_id": 2
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Random House Tower",
+      "888 7th Avenue",
+      "Villard (imprint)",
+      "Real estate technology",
+      "Carl B. Stokes United States Courthouse"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Random House Tower",
+        "sentence_id": 0,
+        "text": "Random House Tower. The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex."
+      },
+      {
+        "title": "Random House Tower",
+        "sentence_id": 1,
+        "text": "Random House Tower. The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street."
+      },
+      {
+        "title": "888 7th Avenue",
+        "sentence_id": 0,
+        "text": "888 7th Avenue. 888 7th Avenue is a 628 ft (191m) tall modern-style office skyscraper in Midtown Manhattan which was completed in 1969 and has 46 floors."
+      },
+      {
+        "title": "888 7th Avenue",
+        "sentence_id": 3,
+        "text": "888 7th Avenue. Previously known as the Arlen Building, its namesake being the company responsible for its construction, Arlen Realty & Development Corporation."
+      },
+      {
+        "title": "888 7th Avenue",
+        "sentence_id": 1,
+        "text": "888 7th Avenue. Emery Roth & Sons designed the building, which is tied with Central Park Place for the 65th tallest building in New York City."
+      }
+    ]
+  },
+  {
+    "example_id": "5a8133725542995ce29dcbdb",
+    "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+    "answer": "Robert Erskine Childers DSC",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Henry Roth",
+        "sentence_id": 0
+      },
+      {
+        "title": "Robert Erskine Childers",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Henry Roth",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Erskine Barton Childers",
+      "Robert Erskine Childers",
+      "Henry Roth",
+      "Robert Caesar Childers",
+      "Robert Barton"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Erskine Barton Childers",
+        "sentence_id": 0,
+        "text": "Erskine Barton Childers. Erskine Barton Childers (11 March 1929 – 25 August 1996) was an Irish writer, BBC correspondent and United Nations senior civil servant."
+      },
+      {
+        "title": "Robert Erskine Childers",
+        "sentence_id": 0,
+        "text": "Robert Erskine Childers. Robert Erskine Childers DSC (25 June 1870 – 24 November 1922), universally known as Erskine Childers, was a British writer, whose works included the influential novel \"The Riddle of the Sands\", and a Fenian revolutionary who smuggled guns to Ireland in his sailing yacht \"Asgard\"."
+      },
+      {
+        "title": "Molly Childers",
+        "sentence_id": 3,
+        "text": "Molly Childers. Molly married the writer and Irish nationalist, Robert Erskine Childers."
+      },
+      {
+        "title": "Erskine Barton Childers",
+        "sentence_id": 1,
+        "text": "Erskine Barton Childers. He was the eldest son of Erskine Hamilton Childers (Ireland's fourth President) and Ruth Ellen Dow Childers."
+      },
+      {
+        "title": "Robert Erskine Childers",
+        "sentence_id": 2,
+        "text": "Robert Erskine Childers. He was the son of British Orientalist scholar Robert Caesar Childers; the cousin of Hugh Childers and Robert Barton; and the father of the fourth President of Ireland, Erskine Hamilton Childers."
+      }
+    ]
+  },
+  {
+    "example_id": "5ae6050f55429929b0807a5e",
+    "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+    "answer": "Sonic",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "A Rather Blustery Day",
+        "sentence_id": 1
+      },
+      {
+        "title": "Jim Cummings",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "A Rather Blustery Day",
+        "sentence_id": 1
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Jim Cummings",
+      "Kate Higgins",
+      "A Rather Blustery Day",
+      "Heffalumps and Woozles",
+      "Winnie the Pooh and the Blustery Day"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Kate Higgins",
+        "sentence_id": 3,
+        "text": "Kate Higgins. In 2010, she voiced Miles \"Tails\" Prower in the video game series \"Sonic the Hedgehog\"."
+      },
+      {
+        "title": "Jim Cummings",
+        "sentence_id": 1,
+        "text": "Jim Cummings. He is known for voicing the title character from \"Darkwing Duck\", Dr. Robotnik from \"Sonic the Hedgehog\", and Pete."
+      },
+      {
+        "title": "A Rather Blustery Day",
+        "sentence_id": 0,
+        "text": "A Rather Blustery Day. \"A Rather Blustery Day\" is a whimsical song from the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"."
+      },
+      {
+        "title": "Winnie the Pooh and the Blustery Day",
+        "sentence_id": 4,
+        "text": "Winnie the Pooh and the Blustery Day. The music was written by Richard M. Sherman and Robert B. Sherman."
+      },
+      {
+        "title": "Heffalumps and Woozles",
+        "sentence_id": 0,
+        "text": "Heffalumps and Woozles. \"Heffalumps and Woozles\" is a song from the 1968 Walt Disney musical film featurette \"Winnie the Pooh and the Blustery Day\"."
+      }
+    ]
+  },
+  {
+    "example_id": "5ae2070a5542994d89d5b313",
+    "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+    "answer": "Badly Drawn Boy",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Badly Drawn Boy",
+        "sentence_id": 0
+      },
+      {
+        "title": "Wolf Alice",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Badly Drawn Boy",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Wolf Alice",
+      "The Hour of Bewilderbeast",
+      "About a Boy (soundtrack)",
+      "Badly Drawn Boy discography",
+      "Badly Drawn Boy"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Wolf Alice",
+        "sentence_id": 1,
+        "text": "Wolf Alice. Its members since 2012 are Ellie Rowsell (vocals, guitar), Joff Oddie (guitars, vocals), Theo Ellis (bass), and Joel Amey (drums, vocals)."
+      },
+      {
+        "title": "Wolf Alice",
+        "sentence_id": 0,
+        "text": "Wolf Alice. Wolf Alice are a four-piece alternative rock band from North London, formed initially as a two-person band in 2010."
+      },
+      {
+        "title": "The Hour of Bewilderbeast",
+        "sentence_id": 1,
+        "text": "The Hour of Bewilderbeast. Damon Gough, who performs as Badly Drawn Boy, wrote, produced, and played several instruments on the album's eighteen tracks, several of which also feature accompaniment by members of the British indie rock bands Alfie and Doves."
+      },
+      {
+        "title": "About a Boy (soundtrack)",
+        "sentence_id": 1,
+        "text": "About a Boy (soundtrack). Gough was chosen to compose and perform the entire soundtrack."
+      },
+      {
+        "title": "Badly Drawn Boy discography",
+        "sentence_id": 0,
+        "text": "Badly Drawn Boy discography. The discography of English alternative music singer/songwriter Badly Drawn Boy (real name Damon Gough) includes eight studio albums (including two soundtracks), one compilation, six extended plays and twenty-one singles."
+      }
+    ]
+  },
+  {
+    "example_id": "5ac23ff0554299636651994d",
+    "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+    "answer": "2000",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Poison (American band)",
+        "sentence_id": 0
+      },
+      {
+        "title": "Shut Up, Make Love",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Poison (American band)",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Shut Up, Make Love",
+      "Poison (American band)",
+      "Be the One (Poison song)",
+      "Make Love Not War (album)",
+      "Make Love"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Shut Up, Make Love",
+        "sentence_id": 0,
+        "text": "Shut Up, Make Love. \"Shut Up, Make Love\" is a song by American rock band Poison; released in 2000, it was the first single presented to radio stations from their 2000 \"Crack a Smile...and More!"
+      },
+      {
+        "title": "Shut Up, Make Love",
+        "sentence_id": 4,
+        "text": "Shut Up, Make Love. The song was the first Poison single with lead guitarist Blues Saraceno."
+      },
+      {
+        "title": "Poison (American band)",
+        "sentence_id": 5,
+        "text": "Poison (American band). The popularity continued into the new decade with their third consecutive multi-platinum selling album, \"Flesh & Blood\"."
+      },
+      {
+        "title": "Poison (American band)",
+        "sentence_id": 3,
+        "text": "Poison (American band). The band's breakthrough debut album, the multi-platinum \"Look What the Cat Dragged In\", was released in 1986 and they hit their peak with the second album, \"Open Up and Say... Ahh!"
+      },
+      {
+        "title": "Shut Up, Make Love",
+        "sentence_id": 3,
+        "text": "Shut Up, Make Love. \"Crack a Smile\" is Poison's fifth studio album, released on March 14, 2000, and charting at #131 on The Billboard 200."
+      }
+    ]
+  },
+  {
+    "example_id": "5abc0a5d5542993f40c73c64",
+    "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+    "answer": "no",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Freakonomics (film)",
+        "sentence_id": 0
+      },
+      {
+        "title": "In the Realm of the Hackers",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "In the Realm of the Hackers",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Freakonomics (film)",
+      "Freakonomics Radio",
+      "In the Realm of the Hackers",
+      "Hackers (film)",
+      "Robin Goldstein"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Freakonomics Radio",
+        "sentence_id": 3,
+        "text": "Freakonomics Radio. The show is also distributed as a podcast, and is among the most popular on iTunes."
+      },
+      {
+        "title": "Freakonomics (film)",
+        "sentence_id": 0,
+        "text": "Freakonomics (film). Freakonomics: The Movie is a 2010 American documentary film based on the 2005 book \"Freakonomics: A Rogue Economist Explores the Hidden Side of Everything\" by economist Steven D. Levitt and writer Stephen J. Dubner."
+      },
+      {
+        "title": "Freakonomics Radio",
+        "sentence_id": 2,
+        "text": "Freakonomics Radio. Journalist Stephen Dubner hosts the show, with economist Steven Levitt as a regular guest."
+      },
+      {
+        "title": "Freakonomics (film)",
+        "sentence_id": 2,
+        "text": "Freakonomics (film). The film received a lukewarm reception and a 65% fresh rating at Rottentomatoes."
+      },
+      {
+        "title": "Freakonomics (film)",
+        "sentence_id": 1,
+        "text": "Freakonomics (film). The film premiered at the Tribeca Film Festival in April 2010 with a theatrical release later in the year."
+      }
+    ]
+  },
+  {
+    "example_id": "5a7cc50e554299452d57ba3e",
+    "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+    "answer": "Letters to Cleo",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Letters to Cleo",
+        "sentence_id": 0
+      },
+      {
+        "title": "Letters to Cleo",
+        "sentence_id": 1
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 0
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Letters to Cleo",
+        "sentence_id": 0
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 1
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Screaming Trees",
+      "Screaming Trees discography",
+      "Letters to Cleo",
+      "Change Has Come",
+      "Truly"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Letters to Cleo",
+        "sentence_id": 1,
+        "text": "Letters to Cleo. The band's members are Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, and later, Tom Polce."
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 0,
+        "text": "Screaming Trees. Screaming Trees was an American rock band formed in Ellensburg, Washington in 1985 by vocalist Mark Lanegan, guitarist Gary Lee Conner, bass player Van Conner and drummer Mark Pickerel."
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 3,
+        "text": "Screaming Trees. During Screaming Trees' existence the band released seven studio albums, five EPs, and three compilations."
+      },
+      {
+        "title": "Screaming Trees",
+        "sentence_id": 2,
+        "text": "Screaming Trees. Although widely associated with grunge, the band's sound incorporated hard rock and psychedelic elements."
+      },
+      {
+        "title": "Screaming Trees discography",
+        "sentence_id": 0,
+        "text": "Screaming Trees discography. The discography of Screaming Trees, an Ellensburg, Washington-based rock band, consists of seven studio albums, three compilation albums, five extended plays (EP), and six singles, though this does not include any solo material recorded by the individual members of Screaming Trees."
+      }
+    ]
+  },
+  {
+    "example_id": "5a8ef2a75542995a26add583",
+    "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+    "answer": "2000",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Carlo Rovelli",
+        "sentence_id": 0
+      },
+      {
+        "title": "Seven Brief Lessons on Physics",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Carlo Rovelli",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Seven Brief Lessons on Physics",
+      "Carlo Rovelli",
+      "Chiara Nappi",
+      "Aldo Pontremoli",
+      "Claudio Pellegrini"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Seven Brief Lessons on Physics",
+        "sentence_id": 1,
+        "text": "Seven Brief Lessons on Physics. Originally published in Italian in 2014, the book has been translated into 41 languages."
+      },
+      {
+        "title": "Seven Brief Lessons on Physics",
+        "sentence_id": 0,
+        "text": "Seven Brief Lessons on Physics. Seven Brief Lessons on Physics (Italian: \"\" ) is a short book by the Italian physicist Carlo Rovelli."
+      },
+      {
+        "title": "Seven Brief Lessons on Physics",
+        "sentence_id": 2,
+        "text": "Seven Brief Lessons on Physics. It is an Italian bestseller, with more than 300,000 copies sold in Rovelli's home country."
+      },
+      {
+        "title": "Chiara Nappi",
+        "sentence_id": 0,
+        "text": "Chiara Nappi. Chiara R. Nappi is an Italian physicist."
+      },
+      {
+        "title": "Chiara Nappi",
+        "sentence_id": 1,
+        "text": "Chiara Nappi. Her research areas have included mathematical physics, particle physics, and string theory."
+      }
+    ]
+  },
+  {
+    "example_id": "5a7571135542992d0ec05f98",
+    "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+    "answer": "New York City",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Columbia University",
+        "sentence_id": 0
+      },
+      {
+        "title": "Ralph Hefferline",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Columbia University",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Ralph Hefferline",
+      "E. Mavis Hetherington",
+      "Columbia University",
+      "Stanley Coren",
+      "Frank L. Schmidt"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Ralph Hefferline",
+        "sentence_id": 0,
+        "text": "Ralph Hefferline. Ralph Franklin Hefferline (15 February 1910 in Muncie, Indiana – 16 March 1974) was a psychology professor at Columbia University."
+      },
+      {
+        "title": "E. Mavis Hetherington",
+        "sentence_id": 3,
+        "text": "E. Mavis Hetherington. While a professor at the University of Virginia she helped improve their psychology department, making them a nationally ranked program."
+      },
+      {
+        "title": "David C. Funder",
+        "sentence_id": 1,
+        "text": "David C. Funder. Funder resides as the chair of the Psychology department at the University of California, Riverside."
+      },
+      {
+        "title": "Princeton Neuroscience Institute",
+        "sentence_id": 2,
+        "text": "Princeton Neuroscience Institute. This partnership was led by psychology professor Jonathan Cohen and molecular biology professor David Tank, who continue to serve as Co-Directors of the Institute."
+      },
+      {
+        "title": "Stanley Coren",
+        "sentence_id": 1,
+        "text": "Stanley Coren. He also writes for \"Psychology Today\" in the award-winning regular feature series Canine Corner ."
+      }
+    ]
+  },
+  {
+    "example_id": "5a7a0e1e5542990783324e1a",
+    "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+    "answer": "Scotch Collie",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Manchester Terrier",
+        "sentence_id": 0
+      },
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 0
+      },
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 3
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Manchester Terrier",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.6666666666666666,
+    "retrieved_passage_titles": [
+      "Scotch Collie",
+      "English Setter",
+      "Manchester Terrier",
+      "Toy Manchester Terrier",
+      "Florence Nagle"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 3,
+        "text": "Scotch Collie. Other ancestors include the Gordon and Irish Setters."
+      },
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 0,
+        "text": "Scotch Collie. The Scotch Collie is a landrace breed of dog which originated from the highland regions of Scotland."
+      },
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 2,
+        "text": "Scotch Collie. It is generally believed to have descended from a variety of ancient herding dogs, some dating back to the Roman occupation, which may have included Roman Cattle Dogs, Native Celtic Dogs and Viking Herding Spitzes."
+      },
+      {
+        "title": "Collie",
+        "sentence_id": 1,
+        "text": "Collie. The type originated in Scotland and Northern England."
+      },
+      {
+        "title": "Scotch Collie",
+        "sentence_id": 1,
+        "text": "Scotch Collie. The breed consisted of both the long-haired (now known as Rough) Collie and the short-haired (now known as Smooth) Collie."
+      }
+    ]
+  },
+  {
+    "example_id": "5a74106b55429979e288289e",
+    "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+    "answer": "Mumbai",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Sachin Warrier",
+        "sentence_id": 3
+      },
+      {
+        "title": "Tata Consultancy Services",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Tata Consultancy Services",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Sachin Bansal",
+      "Sachin Warrier",
+      "Alec Muffett",
+      "Tata Consultancy Services",
+      "Lead programmer"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Sachin Warrier",
+        "sentence_id": 3,
+        "text": "Sachin Warrier. He was working as a software engineer in Tata Consultancy Services in Kochi."
+      },
+      {
+        "title": "Sachin Bansal",
+        "sentence_id": 1,
+        "text": "Sachin Bansal. Sachin is from Chandigarh and is an engineering graduate from Indian Institute of Technology Delhi."
+      },
+      {
+        "title": "Sachin Warrier",
+        "sentence_id": 0,
+        "text": "Sachin Warrier. Sachin Warrier is a playback singer and composer in the Malayalam cinema industry from Kerala."
+      },
+      {
+        "title": "Sachin Warrier",
+        "sentence_id": 2,
+        "text": "Sachin Warrier. He made his debut with the movie Malarvaadi Arts Club."
+      },
+      {
+        "title": "Sachin Warrier",
+        "sentence_id": 4,
+        "text": "Sachin Warrier. Later he resigned from the job to concentrate more on music."
+      }
+    ]
+  },
+  {
+    "example_id": "5a8e068b5542995085b37384",
+    "question": "Are Ferocactus and Silene both types of plant?",
+    "answer": "yes",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Ferocactus",
+        "sentence_id": 0
+      },
+      {
+        "title": "Silene",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Ferocactus",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Silene",
+      "Ferocactus",
+      "Silene stenophylla",
+      "Silene menziesii",
+      "Silene suksdorfii"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Silene",
+        "sentence_id": 0,
+        "text": "Silene. Silene is a genus of flowering plants in the family Caryophyllaceae."
+      },
+      {
+        "title": "Silene",
+        "sentence_id": 3,
+        "text": "Silene. Many \"Silene\" species are widely distributed, particularly in the northern hemisphere."
+      },
+      {
+        "title": "Ferocactus",
+        "sentence_id": 1,
+        "text": "Ferocactus. There are about 30 species included in the genus."
+      },
+      {
+        "title": "Ferocactus",
+        "sentence_id": 2,
+        "text": "Ferocactus. They are found in the southwestern United States and northwestern Mexico."
+      },
+      {
+        "title": "Silene stenophylla",
+        "sentence_id": 0,
+        "text": "Silene stenophylla. Silene stenophylla is a species of flowering plant in the family Caryophyllaceae."
+      }
+    ]
+  },
+  {
+    "example_id": "5a77724455429972597f153e",
+    "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+    "answer": "Indianapolis Motor Speedway",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "1957 Indianapolis 500",
+        "sentence_id": 0
+      },
+      {
+        "title": "Indianapolis Motor Speedway",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Indianapolis Motor Speedway",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "1957 Indianapolis 500",
+      "Indianapolis Motor Speedway",
+      "Subway 400",
+      "Lean Horse Ultramarathon",
+      "Carolina Dodge Dealers 400"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Indianapolis Motor Speedway",
+        "sentence_id": 1,
+        "text": "Indianapolis Motor Speedway. It is the home of the Indianapolis 500 and the Brickyard 400, and formerly the home of the United States Grand Prix."
+      },
+      {
+        "title": "Allison Transmission",
+        "sentence_id": 1,
+        "text": "Allison Transmission. In 1911, Allison’s new track held the first Indianapolis 500 mile race."
+      },
+      {
+        "title": "Subway 400",
+        "sentence_id": 1,
+        "text": "Subway 400. This 400-mile (644 km) annual race was sponsored by Subway and was held at North Carolina Speedway (\"The Rock\") since 1966."
+      },
+      {
+        "title": "1957 Indianapolis 500",
+        "sentence_id": 0,
+        "text": "1957 Indianapolis 500. The 41st International 500-Mile Sweepstakes was held at the Indianapolis Motor Speedway on Thursday, May 30, 1957."
+      },
+      {
+        "title": "Subway 400",
+        "sentence_id": 2,
+        "text": "Subway 400. From 1966 to 1995, a 500-mile (805-km) race was held; the race was known as the Peach Blossom 500 (1966), the Carolina 500 (1967–1985), and the Goodwrench 500 (1986–1995)."
+      }
+    ]
+  },
+  {
+    "example_id": "5a8a43eb5542996c9b8d5e82",
+    "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+    "answer": "Marion, South Australia",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Marion, South Australia",
+        "sentence_id": 0
+      },
+      {
+        "title": "Marion, South Australia",
+        "sentence_id": 1
+      },
+      {
+        "title": "Westminster School, Adelaide",
+        "sentence_id": 0
+      },
+      {
+        "title": "Westminster School, Adelaide",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Marion, South Australia",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.75,
+    "retrieved_passage_titles": [
+      "Westminster School, Adelaide",
+      "Marion, South Australia",
+      "PNG solution",
+      "Grace Church School",
+      "Sainik School Balachadi, Jamnagar"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Westminster School, Adelaide",
+        "sentence_id": 1,
+        "text": "Westminster School, Adelaide. Founded as a Methodist day and boarding school for boys, the school was opened by the Prime Minister Robert Menzies in 1961 and is named after Westminster School in London."
+      },
+      {
+        "title": "Westminster School, Adelaide",
+        "sentence_id": 2,
+        "text": "Westminster School, Adelaide. The school became co-educational in 1978, and has a current enrolment of around 1150 students."
+      },
+      {
+        "title": "Westminster School, Adelaide",
+        "sentence_id": 0,
+        "text": "Westminster School, Adelaide. Westminster School is an independent, Uniting Church, Early Learning to Year 12, coeducational, day and boarding school located at Marion, South Australia, 12 km south of Adelaide."
+      },
+      {
+        "title": "Concho Indian Boarding School",
+        "sentence_id": 1,
+        "text": "Concho Indian Boarding School. It existed from 1909 to 1983."
+      },
+      {
+        "title": "Marion, South Australia",
+        "sentence_id": 1,
+        "text": "Marion, South Australia. Founded as a rural village in 1838 on the banks of the Sturt River, Marion was found to have rich soil and the population expanded rapidly."
+      }
+    ]
+  },
+  {
+    "example_id": "5ae73acb5542991e8301cc07",
+    "question": "D1NZ is a series based on what oversteering technique?",
+    "answer": "Drifting",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "D1NZ",
+        "sentence_id": 0
+      },
+      {
+        "title": "Drifting (motorsport)",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Drifting (motorsport)",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "D1NZ",
+      "Drifting (motorsport)",
+      "Raaz Pichhle Janam Ka",
+      "Rising Star (France)",
+      "Night School: the Web Series"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "D1NZ",
+        "sentence_id": 0,
+        "text": "D1NZ. D1NZ is a production car drifting series in New Zealand."
+      },
+      {
+        "title": "D1NZ",
+        "sentence_id": 1,
+        "text": "D1NZ. There is currently no New Zealand drifting championship so D1NZ is the premier series running as a clubsport advanced event under MotorSport New Zealand."
+      },
+      {
+        "title": "D1NZ",
+        "sentence_id": 2,
+        "text": "D1NZ. It began early in 2003 as a small competition consisting of several drifting teams from all over the country in order to organise and regulate Drifting events on the circuit."
+      },
+      {
+        "title": "D1NZ",
+        "sentence_id": 7,
+        "text": "D1NZ. Despite similar moniker, the series is not related to the Japanese D1 Grand Prix series."
+      },
+      {
+        "title": "D1NZ",
+        "sentence_id": 8,
+        "text": "D1NZ. It has been recognised as the longest running drifting series in the world."
+      }
+    ]
+  },
+  {
+    "example_id": "5adc53f75542996e6852530a",
+    "question": "Are both Cypress and Ajuga genera?",
+    "answer": "no",
+    "question_type": "comparison",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Ajuga",
+        "sentence_id": 0
+      },
+      {
+        "title": "Cypress",
+        "sentence_id": 0
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Ajuga",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.5,
+    "retrieved_passage_titles": [
+      "Ajugeae",
+      "Cypress-pine",
+      "Cypress",
+      "Ajuga",
+      "Cupressus"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Cupressus",
+        "sentence_id": 0,
+        "text": "Cupressus. The genus Cupressus is one of several genera within the family Cupressaceae that have the common name cypress; for the others, see cypress."
+      },
+      {
+        "title": "Ajugeae",
+        "sentence_id": 0,
+        "text": "Ajugeae. Ajugeae is a tribe of the Teucrioideae subfamily of the family Lamiaceae and might contain the genera \"Acrymia\" , \"Ajuga\" , \"Cymaria\" , \"Garrettia\" , \"Holocheila\" ."
+      },
+      {
+        "title": "Cypress",
+        "sentence_id": 0,
+        "text": "Cypress. Cypress is a conifer tree or shrub of northern temperate regions that belongs to the family Cupressaceae."
+      },
+      {
+        "title": "Cypress-pine",
+        "sentence_id": 0,
+        "text": "Cypress-pine. Cypress-pine is the common name used for three closely related genera of conifers in the cypress family Cupressaceae:"
+      },
+      {
+        "title": "Ajuga",
+        "sentence_id": 1,
+        "text": "Ajuga. They grow to 5–50 cm tall, with opposite leaves."
+      }
+    ]
+  },
+  {
+    "example_id": "5a80840f554299485f59863b",
+    "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+    "answer": "Charmed",
+    "question_type": "bridge",
+    "difficulty": "hard",
+    "gold_facts": [
+      {
+        "title": "Jawbreaker (film)",
+        "sentence_id": 0
+      },
+      {
+        "title": "Jawbreaker (film)",
+        "sentence_id": 1
+      },
+      {
+        "title": "Rose McGowan",
+        "sentence_id": 1
+      }
+    ],
+    "missing_gold_facts": [
+      {
+        "title": "Jawbreaker (film)",
+        "sentence_id": 0
+      }
+    ],
+    "passage_recall": 1.0,
+    "sentence_recall": 0.6666666666666666,
+    "retrieved_passage_titles": [
+      "Jawbreaker (film)",
+      "Rose McGowan",
+      "Kerr Smith",
+      "Kay Tagal Kang Hinintay",
+      "List of Charmed characters"
+    ],
+    "retrieved_sentences": [
+      {
+        "title": "Jawbreaker (film)",
+        "sentence_id": 1,
+        "text": "Jawbreaker (film). The film stars Rose McGowan, Rebecca Gayheart, and Julie Benz as girls in an exclusive clique in their high school."
+      },
+      {
+        "title": "Rose McGowan",
+        "sentence_id": 0,
+        "text": "Rose McGowan. Rose Arianna McGowan (born September 5, 1973) is an Italian-born American actress, film producer, director and singer."
+      },
+      {
+        "title": "Rose McGowan",
+        "sentence_id": 1,
+        "text": "Rose McGowan. She is best known to television audiences for having played Paige Matthews in The WB supernatural drama series \"Charmed\" from 2001 to 2006."
+      },
+      {
+        "title": "Jawbreaker (film)",
+        "sentence_id": 2,
+        "text": "Jawbreaker (film). Charlotte Ayanna has a non-speaking cameo role as the murdered leader of the group."
+      },
+      {
+        "title": "Kay Tagal Kang Hinintay",
+        "sentence_id": 4,
+        "text": "Kay Tagal Kang Hinintay. It was also part of the top five drama series of the Asian TV Awards."
+      }
+    ]
+  }
+]
