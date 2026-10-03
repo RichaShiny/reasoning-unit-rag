@@ -1,0 +1,11 @@
+{
+  "saved_cases": 20,
+  "question_types": {
+    "bridge": 12,
+    "comparison": 8
+  },
+  "mean_sentence_recall": 0.5325,
+  "missing_facts": 23,
+  "cases_with_missing_evidence_page": 10,
+  "scope": "Selected historical failure cases; original source coordinates are unverified."
+}
