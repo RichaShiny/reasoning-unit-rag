@@ -89,3 +89,9 @@ Run regression checks without dataset/model downloads:
 ```sh
 python3 -m unittest discover -s tests -v
 ```
+
+## Completed baseline replication
+
+[Experiment 008](experiments/008_corrected_baselines.md) records real pinned-model runs on the first 100 validation questions and 500 further seeded questions. Original-question sentence recall is 0.6390 and 0.6001, respectively; the existing rule-based generator yields no improvement. Full evidence is recovered on only 25.8% of the new 500 questions.
+
+[Run artifacts](results/README.md) include exact samples, predictions, diagnostics, and paired-bootstrap intervals. `src/paired_analysis.py` now supplies intervals as a separate post-processing command; the evaluation runner's summary alone still reports means.

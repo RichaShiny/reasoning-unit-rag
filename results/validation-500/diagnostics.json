@@ -1,0 +1,12 @@
+{
+  "examples": 500,
+  "blank_sentences": 3,
+  "old_filter_shifted_coordinates": 0,
+  "questions_with_extra_rule_queries": 5,
+  "changed_sentence_sets": 4,
+  "improved_recall": 0,
+  "reduced_recall": 1,
+  "baseline_incomplete": 371,
+  "baseline_missing_evidence_page": 284,
+  "baseline_within_page_only": 87
+}

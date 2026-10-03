@@ -11,3 +11,5 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+# Local model and dataset downloads
+.cache/

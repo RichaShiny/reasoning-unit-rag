@@ -84,3 +84,11 @@ The result suggests the issue may not simply be insufficient neighboring context
 Audited the 20 saved sentence failures: 12 bridge, 8 comparison; mean saved recall 0.5325; 23 missing facts; 10 cases miss evidence from a page absent in retrieved sentences. These selected historical records are internally consistent but source coordinates remain unverified until the indexing fix is rerun.
 
 Added a reproducible standard-library artifact audit and Experiment 007, which connects HotpotQA, Decomposed Prompting, and IRCoT to a prospective evaluation with isolated generator inputs, held-out IDs, paired metrics, and context-budget controls. No new embedding or automated-generation result is claimed.
+
+## October 3, 2026 — corrected replication and development check
+
+Completed pinned dataset/model evaluations with the merged evaluator. The first 100 reproduce sentence recall 0.6390, and the saved 20 failure recalls all match. No nonempty source coordinate is shifted by blanks in either evaluated sample, so the indexing bug did not explain these results.
+
+On 500 seeded validation questions excluding the original prefix, baseline recall is 0.6001 and complete-evidence rate 25.8%. Rule queries are generated for only five questions, with zero recall improvements and one loss; paired recall delta -0.000667, bootstrap 95% interval [-0.002, 0.000]. Among 371 incomplete baseline results, 284 lack a required page and 87 miss exact evidence on represented pages.
+
+Added question-level paired-bootstrap post-processing, artifact audits, actual saved run outputs, and Experiment 008. These 500 examples are now inspected development data; reserve a fresh frozen sample for future automated-generator claims.
