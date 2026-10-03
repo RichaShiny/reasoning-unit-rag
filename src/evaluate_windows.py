@@ -1,3 +1,4 @@
+from evidence import sentence_windows
 from datasets import load_dataset
 from sentence_transformers import SentenceTransformer
 import numpy as np
@@ -65,20 +66,12 @@ for example_number, example in enumerate(dataset, start=1):
             }
         )
 
-        for center_id in range(len(cleaned)):
-            half_window = WINDOW_SIZE // 2
-
-            start = max(0, center_id - half_window)
-            end = min(len(cleaned), center_id + half_window + 1)
-
-            window_text = " ".join(cleaned[start:end])
-
+        for window in sentence_windows(group, WINDOW_SIZE):
             windows.append(
                 {
                     "title": title,
-                    "start_id": start,
-                    "end_id": end,
-                    "text": f"{title}. {window_text}",
+                    "sentence_ids": window["sentence_ids"],
+                    "text": f"{title}. {window['text']}",
                 }
             )
 
@@ -138,9 +131,7 @@ for example_number, example in enumerate(dataset, start=1):
         for window in retrieved_windows:
             same_title = window["title"] == gold_title
             sentence_inside_window = (
-                window["start_id"]
-                <= gold_sentence_id
-                < window["end_id"]
+                gold_sentence_id in window["sentence_ids"]
             )
 
             if same_title and sentence_inside_window:
