@@ -1,3 +1,4 @@
+from evidence import indexed_sentences
 from datasets import load_dataset
 from sentence_transformers import SentenceTransformer
 import numpy as np
@@ -64,7 +65,7 @@ for example_number, example in enumerate(dataset, start=1):
             }
         )
 
-        for sentence_id, sentence in enumerate(cleaned):
+        for sentence_id, sentence in indexed_sentences(group):
             sentences.append(
                 {
                     "title": title,
