@@ -1,0 +1,104 @@
+{
+  "baseline": "original_question",
+  "candidate": "rule_based",
+  "groups": {
+    "all": {
+      "recall": {
+        "mean_difference": -0.0006666666666666668,
+        "percentile_95_interval": [
+          -0.002,
+          0.0
+        ],
+        "examples": 500,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "complete_evidence": {
+        "mean_difference": -0.002,
+        "percentile_95_interval": [
+          -0.006,
+          0.0
+        ],
+        "examples": 500,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "page_coverage": {
+        "mean_difference": 0.0,
+        "percentile_95_interval": [
+          0.0,
+          0.0
+        ],
+        "examples": 500,
+        "resamples": 10000,
+        "seed": 42
+      }
+    },
+    "type:bridge": {
+      "recall": {
+        "mean_difference": 0.0,
+        "percentile_95_interval": [
+          0.0,
+          0.0
+        ],
+        "examples": 404,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "complete_evidence": {
+        "mean_difference": 0,
+        "percentile_95_interval": [
+          0.0,
+          0.0
+        ],
+        "examples": 404,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "page_coverage": {
+        "mean_difference": 0.0,
+        "percentile_95_interval": [
+          0.0,
+          0.0
+        ],
+        "examples": 404,
+        "resamples": 10000,
+        "seed": 42
+      }
+    },
+    "type:comparison": {
+      "recall": {
+        "mean_difference": -0.0034722222222222225,
+        "percentile_95_interval": [
+          -0.010416666666666668,
+          0.0
+        ],
+        "examples": 96,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "complete_evidence": {
+        "mean_difference": -0.010416666666666666,
+        "percentile_95_interval": [
+          -0.03125,
+          0.0
+        ],
+        "examples": 96,
+        "resamples": 10000,
+        "seed": 42
+      },
+      "page_coverage": {
+        "mean_difference": 0.0,
+        "percentile_95_interval": [
+          0.0,
+          0.0
+        ],
+        "examples": 96,
+        "resamples": 10000,
+        "seed": 42
+      }
+    }
+  },
+  "interpretation": "Candidate minus baseline; selected-prefix replication is not held-out population evidence.",
+  "predictions_sha256": "5d8fc172397d9d00f1a3a16c570634cfc458edcaca706c5fd593d0bffebafec0"
+}

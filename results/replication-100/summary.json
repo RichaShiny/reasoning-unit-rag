@@ -1,0 +1,62 @@
+{
+  "all": {
+    "examples": 100,
+    "methods": {
+      "original_question": {
+        "recall": 0.639,
+        "complete_evidence": 0.33,
+        "page_coverage": 0.725,
+        "retrieved_words": 123.13,
+        "retrieved_sentences": 5
+      },
+      "rule_based": {
+        "recall": 0.639,
+        "complete_evidence": 0.33,
+        "page_coverage": 0.725,
+        "retrieved_words": 123.16,
+        "retrieved_sentences": 5
+      }
+    },
+    "paired_recall_difference": 0.0
+  },
+  "type:bridge": {
+    "examples": 79,
+    "methods": {
+      "original_question": {
+        "recall": 0.5915611814345991,
+        "complete_evidence": 0.25316455696202533,
+        "page_coverage": 0.6772151898734177,
+        "retrieved_words": 124.87341772151899,
+        "retrieved_sentences": 5
+      },
+      "rule_based": {
+        "recall": 0.5915611814345991,
+        "complete_evidence": 0.25316455696202533,
+        "page_coverage": 0.6772151898734177,
+        "retrieved_words": 124.9113924050633,
+        "retrieved_sentences": 5
+      }
+    },
+    "paired_recall_difference": 0.0
+  },
+  "type:comparison": {
+    "examples": 21,
+    "methods": {
+      "original_question": {
+        "recall": 0.8174603174603174,
+        "complete_evidence": 0.6190476190476191,
+        "page_coverage": 0.9047619047619048,
+        "retrieved_words": 116.57142857142857,
+        "retrieved_sentences": 5
+      },
+      "rule_based": {
+        "recall": 0.8174603174603174,
+        "complete_evidence": 0.6190476190476191,
+        "page_coverage": 0.9047619047619048,
+        "retrieved_words": 116.57142857142857,
+        "retrieved_sentences": 5
+      }
+    },
+    "paired_recall_difference": 0.0
+  }
+}
