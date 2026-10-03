@@ -53,6 +53,17 @@ reasoning_units.py → generates rule-based sub-queries
 reasoning_unit_retrieval.py → evaluates rule-based reasoning units
 oracle_reasoning_unit_retrieval.py → oracle test at passage level
 oracle_sentence_retrieval.py → oracle test at sentence level
+
+## Continuing the research
+
+The next study is specified in [Experiment 007](experiments/007_decomposition_protocol.md), including related work, leakage controls, and evaluation budgets. Audit the existing saved failures without downloading models:
+
+```sh
+python3 src/audit_failures.py --output results/failure_audit.json
+```
+
+Historical retrieval scores need replication after correcting source sentence IDs; the audit checks saved-record consistency, not dataset-coordinate correctness.
+
 ## Reproducible sentence evaluation
 
 `src/run_evaluation.py` compares original-question retrieval with the existing rule-based query generator. It loads datasets/models only when executed; tests use a small deterministic encoder and require only NumPy.

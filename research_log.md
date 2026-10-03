@@ -79,3 +79,8 @@ The result suggests the issue may not simply be insufficient neighboring context
 3. Fixed sentence windows add context without meaningfully improving recall.
 4. Weak rule-based decomposition produces no improvement.
 5. High-quality oracle reasoning units substantially improve exact sentence recall.
+## October 3, 2026
+
+Audited the 20 saved sentence failures: 12 bridge, 8 comparison; mean saved recall 0.5325; 23 missing facts; 10 cases miss evidence from a page absent in retrieved sentences. These selected historical records are internally consistent but source coordinates remain unverified until the indexing fix is rerun.
+
+Added a reproducible standard-library artifact audit and Experiment 007, which connects HotpotQA, Decomposed Prompting, and IRCoT to a prospective evaluation with isolated generator inputs, held-out IDs, paired metrics, and context-budget controls. No new embedding or automated-generation result is claimed.
