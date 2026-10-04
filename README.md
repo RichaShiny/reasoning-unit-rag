@@ -95,3 +95,24 @@ python3 -m unittest discover -s tests -v
 [Experiment 008](experiments/008_corrected_baselines.md) records real pinned-model runs on the first 100 validation questions and 500 further seeded questions. Original-question sentence recall is 0.6390 and 0.6001, respectively; the existing rule-based generator yields no improvement. Full evidence is recovered on only 25.8% of the new 500 questions.
 
 [Run artifacts](results/README.md) include exact samples, predictions, diagnostics, and paired-bootstrap intervals. `src/paired_analysis.py` now supplies intervals as a separate post-processing command; the evaluation runner's summary alone still reports means.
+
+## Automated question-only decomposition
+
+The evaluator can now compare an `automated` method alongside the two existing sentence baselines. The adapter accepts only question text and validates a JSON list of one or two subqueries. All methods share the same final unique-sentence and optional word budget; automated scores use the maximum cosine similarity across the original question and generated queries.
+
+Live generation uses the [OpenAI Responses API](https://developers.openai.com/api/docs/guides/text). Install the optional SDK with `python3 -m pip install -r requirements-generator.txt` and configure `OPENAI_API_KEY` in the environment. The API key is never written to manifests or cache entries. An explicit generator model ID is required; use a snapshot ID when available, and choose an output-token limit and reasoning setting supported by that model. The returned model ID is logged. No live API result is included in this implementation PR.
+
+For a fresh development sample, exclude both the original prefix and the 500 IDs already inspected. Set `GENERATOR_MODEL` to the chosen model ID before running:
+
+```sh
+python3 src/run_evaluation.py --count 500 --seed 42 --exclude-first 100 --exclude-ids results/validation-500/manifest.json --dataset-revision 1908d6afbbead072334abe2965f91bd2709910ab --model-revision 1110a243fdf4706b3f48f1d95db1a4f5529b4d41 --generator-model "$GENERATOR_MODEL" --generator-cache .cache/decomposition --generator-max-output-tokens 512 --output results/automated-development-500
+python3 src/paired_analysis.py results/automated-development-500/predictions.jsonl --candidate automated --output results/automated-development-500/paired_analysis.json
+```
+
+This makes live API requests for cache misses. Freeze the model, prompt, token limit, reasoning setting, sample IDs, and retrieval budgets before interpreting the comparison. Debug on previously inspected examples first. The adapter has no candidate contexts, gold titles/facts, answers, retrieval tools, or prior conversation. Question-only inputs do not prevent a model from using memorized knowledge; assess generated queries for invented bridge entities separately.
+
+Each cache entry records the exact request, raw output, returned model, response status/ID, usage when available, and original latency. Its key includes the question, model, full prompt, output-token cap, reasoning setting, and parser version. Valid cached responses replay without API calls. Malformed output, incomplete responses, and request errors are cached and fall back to the original question with an explicit reason. Exception messages are omitted from logs. There are no SDK retries; use a new cache directory for a deliberate retry experiment. Use a single writer per cache directory.
+
+Add `--generator-cache-only` with the same model/configuration to replay without an API key or the SDK. Missing or mismatched cache entries stop the run rather than silently pretending an automated result exists. Preserve and share the cache alongside evaluation artifacts when reproducing a study; `.cache/` stays out of Git by default.
+
+The run manifest includes the generator prompt/configuration and installed SDK version. Predictions retain fallback and cache status. The summary reports automated retrieval metrics, paired mean recall difference, fallback rate, cache hits, fresh call attempts, latency, and reported token usage for fresh calls only. Failed calls with unavailable usage are counted separately; token totals are not a complete billing estimate. No text-budget sweep or evidence-conditioned second hop is implemented here.

@@ -1,0 +1,3 @@
+# Optional: required only for live OpenAI generation, not cache replay/tests.
+# The installed SDK version is recorded in each run manifest.
+openai
