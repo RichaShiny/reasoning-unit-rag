@@ -34,6 +34,14 @@ class EvaluationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             sample_examples(data, 30, 42, exclude_first=1)
 
+    def test_prior_sample_ids_are_excluded(self):
+        data = [{'id': str(i)} for i in range(20)]
+        rows = sample_examples(data, 5, 42, exclude_first=2, exclude_ids={'4', '5', '6'})
+        self.assertFalse({r['id'] for r in rows} & {'0', '1', '4', '5', '6'})
+        self.assertEqual(rows, sample_examples(data, 5, 42, exclude_first=2, exclude_ids={'4', '5', '6'}))
+        with self.assertRaises(ValueError):
+            sample_examples(data, 18, 42, exclude_ids={'4', '5', '6'})
+
     def test_source_ids_and_metrics(self):
         items = build_sentences(EXAMPLE)
         self.assertEqual(items[0]['sentence_id'], 1)

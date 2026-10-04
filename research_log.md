@@ -92,3 +92,9 @@ Completed pinned dataset/model evaluations with the merged evaluator. The first 
 On 500 seeded validation questions excluding the original prefix, baseline recall is 0.6001 and complete-evidence rate 25.8%. Rule queries are generated for only five questions, with zero recall improvements and one loss; paired recall delta -0.000667, bootstrap 95% interval [-0.002, 0.000]. Among 371 incomplete baseline results, 284 lack a required page and 87 miss exact evidence on represented pages.
 
 Added question-level paired-bootstrap post-processing, artifact audits, actual saved run outputs, and Experiment 008. These 500 examples are now inspected development data; reserve a fresh frozen sample for future automated-generator claims.
+
+## Automated decomposition implementation
+
+Added a strictly question-only generator adapter and evaluator integration with raw-response caching, configuration identity, malformed/incomplete/error fallback, and cache-only replay. The generator model is an explicit setting. Summaries record automated evidence metrics and fresh-call usage/fallback statistics. Added explicit prior-ID exclusions for the next fresh development sample.
+
+Offline tests cover the request boundary, parser, fallbacks, cache identities, shared budgets, unchanged baselines, SDK contract, and full cache-replay CLI flow. Existing saved baseline runs still pass artifact audits. No API key is configured here, so live-generation quality and retrieval gains remain unmeasured. Experiment 009 documents the implementation and next study.

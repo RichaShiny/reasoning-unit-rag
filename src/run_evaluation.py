@@ -13,10 +13,15 @@ from reasoning_units import generate_reasoning_units
 MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
 
 
-def sample_examples(dataset, count, seed, exclude_first=0, first=False):
+def sample_examples(dataset, count, seed, exclude_first=0, first=False, exclude_ids=None):
     if count < 1 or exclude_first < 0 or exclude_first + count > len(dataset):
         raise ValueError('Sample must fit the available examples after exclusion')
     indices = list(range(exclude_first, len(dataset)))
+    if exclude_ids:
+        indices = [i for i in indices
+                   if dataset[i].get('id', dataset[i].get('_id')) not in exclude_ids]
+    if count > len(indices):
+        raise ValueError('Sample does not fit after excluding prior example IDs')
     if not first:
         random.Random(seed).shuffle(indices)
     return [dataset[i] for i in indices[:count]]
@@ -79,34 +84,37 @@ def evidence_metrics(example, selected):
     }
 
 
-def evaluate_example(example, encoder, top_k=5, word_budget=None):
+def evaluate_example(example, encoder, top_k=5, word_budget=None, generator=None):
     import numpy as np
 
     items = build_sentences(example)
     question = example['question']
-    units = generate_reasoning_units(question)
-    # The generator sees the question only; gold labels are used below for scoring.
-    queries = list(dict.fromkeys([question, *units]))
+    rule_queries = list(dict.fromkeys([question, *generate_reasoning_units(question)]))
+    method_queries = {'original_question': [question], 'rule_based': rule_queries}
+    generation = None
+    if generator is not None:
+        # Neither gold labels, answer, nor candidate titles cross this boundary.
+        generation = generator.generate(question)
+        method_queries['automated'] = list(dict.fromkeys([question, *generation['queries']]))
+    queries = list(dict.fromkeys(q for values in method_queries.values() for q in values))
     query_vectors = encoder.encode(queries, normalize_embeddings=True,
                                    show_progress_bar=False)
     if items:
         vectors = encoder.encode([s['text'] for s in items],
                                  normalize_embeddings=True, show_progress_bar=False)
         scores = query_vectors @ vectors.T
-        baseline_scores = scores[0]
-        rule_scores = np.max(scores, axis=0)
-    else:
-        baseline_scores = rule_scores = []
     methods = {}
-    for name, method_scores in [('original_question', baseline_scores),
-                                ('rule_based', rule_scores)]:
+    for name, values in method_queries.items():
+        method_scores = np.max(scores[[queries.index(q) for q in values]], axis=0) if items else []
         selected = select_ranked(items, method_scores, top_k, word_budget)
-        methods[name] = {'queries': [question] if name == 'original_question' else queries,
-                         'retrieved': selected,
+        methods[name] = {'queries': values, 'retrieved': selected,
                          'metrics': evidence_metrics(example, selected)}
-    return {'example_id': example.get('id', example.get('_id')),
-            'question': question, 'question_type': example.get('type', 'unknown'),
-            'methods': methods}
+    record = {'example_id': example.get('id', example.get('_id')),
+              'question': question, 'question_type': example.get('type', 'unknown'),
+              'methods': methods}
+    if generation is not None:
+        record['generation'] = generation
+    return record
 
 
 def summarize(records):
@@ -117,7 +125,7 @@ def summarize(records):
     summary = {}
     for group, rows in sorted(groups.items()):
         summary[group] = {'examples': len(rows), 'methods': {}}
-        for method in ['original_question', 'rule_based']:
+        for method in rows[0]['methods']:
             summary[group]['methods'][method] = {
                 metric: mean(r['methods'][method]['metrics'][metric] for r in rows)
                 for metric in ['recall', 'complete_evidence', 'page_coverage',
@@ -125,6 +133,24 @@ def summarize(records):
         summary[group]['paired_recall_difference'] = mean(
             r['methods']['rule_based']['metrics']['recall'] -
             r['methods']['original_question']['metrics']['recall'] for r in rows)
+    if records and 'automated' in records[0]['methods']:
+        for group, rows in groups.items():
+            summary[group]['automated_paired_recall_difference'] = mean(
+                r['methods']['automated']['metrics']['recall'] -
+                r['methods']['original_question']['metrics']['recall'] for r in rows)
+        generated = [r['generation'] for r in records]
+        attempted = [g for g in generated if g['api_call_attempted']]
+        summary['generation'] = {
+            'examples': len(generated),
+            'fallbacks': sum(g['fallback'] for g in generated),
+            'fallback_rate': mean(g['fallback'] for g in generated),
+            'cache_hits': sum(g['cache_hit'] for g in generated),
+            'api_call_attempts': len(attempted),
+            'api_attempt_latency_seconds': sum(g['response']['latency_seconds'] for g in attempted),
+            'reported_input_tokens_on_new_calls': sum((g['response'].get('usage') or {}).get('input_tokens', 0) for g in attempted),
+            'reported_output_tokens_on_new_calls': sum((g['response'].get('usage') or {}).get('output_tokens', 0) for g in attempted),
+            'new_calls_without_usage': sum(g['response'].get('usage') is None for g in attempted),
+        }
     return summary
 
 
@@ -142,26 +168,50 @@ def main():
     parser.add_argument('--count', type=int, default=100)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--exclude-first', type=int, default=0)
+    parser.add_argument('--exclude-ids', type=Path, help='JSON ID list or a prior run manifest')
     parser.add_argument('--first', action='store_true', help='Take ordered prefix rather than seeded sample')
     parser.add_argument('--top-k', type=int, default=5)
     parser.add_argument('--word-budget', type=int)
+    parser.add_argument('--generator-model', help='Explicit OpenAI model ID; enables automated retrieval')
+    parser.add_argument('--generator-cache', type=Path)
+    parser.add_argument('--generator-cache-only', action='store_true')
+    parser.add_argument('--generator-max-output-tokens', type=int, default=512)
+    parser.add_argument('--generator-reasoning-effort')
     parser.add_argument('--output', type=Path, required=True, help='New run directory; never overwritten')
     args = parser.parse_args()
     if args.top_k < 1 or (args.word_budget is not None and args.word_budget < 1):
         parser.error('Retrieval budgets must be positive')
+    generator = None
+    if args.generator_model:
+        if not args.generator_cache:
+            parser.error('--generator-cache is required with --generator-model')
+        from query_generator import QuestionGenerator, make_openai_provider
+        provider = None if args.generator_cache_only else make_openai_provider()
+        generator = QuestionGenerator(args.generator_model, args.generator_cache, provider,
+                                      args.generator_cache_only, args.generator_max_output_tokens,
+                                      args.generator_reasoning_effort)
+    elif args.generator_cache or args.generator_cache_only or args.generator_reasoning_effort:
+        parser.error('Generator options require --generator-model')
     if args.input:
         dataset = json.loads(args.input.read_text(encoding='utf-8'))
     else:
         from datasets import load_dataset
         dataset = load_dataset('hotpotqa/hotpot_qa', 'distractor', split=args.split,
                                revision=args.dataset_revision)
-    examples = sample_examples(dataset, args.count, args.seed, args.exclude_first, args.first)
+    excluded_ids = []
+    if args.exclude_ids:
+        excluded = json.loads(args.exclude_ids.read_text(encoding='utf-8'))
+        excluded_ids = excluded.get('example_ids') if isinstance(excluded, dict) else excluded
+        if not isinstance(excluded_ids, list) or any(not isinstance(i, str) for i in excluded_ids):
+            raise ValueError('Exclusion input must contain a list of string example IDs')
+    examples = sample_examples(dataset, args.count, args.seed, args.exclude_first, args.first,
+                               set(excluded_ids))
     ids = [e.get('id', e.get('_id')) for e in examples]
     if any(i is None for i in ids) or len(set(ids)) != len(ids):
         raise ValueError('Sample IDs must be present and unique')
     args.output.mkdir(parents=True, exist_ok=False)
     packages = {}
-    for package in ['numpy', 'sentence-transformers', 'datasets', 'torch']:
+    for package in ['numpy', 'sentence-transformers', 'datasets', 'torch', 'openai']:
         try:
             packages[package] = version(package)
         except PackageNotFoundError:
@@ -169,10 +219,12 @@ def main():
     manifest = {'status': 'started', 'configuration': {
                     key: str(value) if isinstance(value, Path) else value
                     for key, value in vars(args).items()},
-                'example_ids': ids, 'packages': packages,
+                'example_ids': ids, 'excluded_example_ids': sorted(set(excluded_ids)), 'packages': packages,
                 'dataset_fingerprint': getattr(dataset, '_fingerprint', None),
                 'revisions_pinned': bool(args.model_revision and (args.input or args.dataset_revision)),
                 'budget_policy': 'Top-K unique sentences capped by optional title-inclusive word budget'}
+    if generator is not None:
+        manifest['generator'] = generator.configuration()
     write_json(args.output / 'manifest.json', manifest)
     # Persist the exact sample, including evaluation labels, separately from generator inputs.
     write_json(args.output / 'examples.json', examples)
@@ -181,7 +233,7 @@ def main():
     records = []
     with (args.output / 'predictions.jsonl').open('w', encoding='utf-8') as output:
         for example in examples:
-            record = evaluate_example(example, encoder, args.top_k, args.word_budget)
+            record = evaluate_example(example, encoder, args.top_k, args.word_budget, generator)
             output.write(json.dumps(record, ensure_ascii=False) + '\n')
             output.flush()
             records.append(record)
