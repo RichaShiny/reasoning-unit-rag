@@ -116,3 +116,17 @@ Each cache entry records the exact request, raw output, returned model, response
 Add `--generator-cache-only` with the same model/configuration to replay without an API key or the SDK. Missing or mismatched cache entries stop the run rather than silently pretending an automated result exists. Preserve and share the cache alongside evaluation artifacts when reproducing a study; `.cache/` stays out of Git by default.
 
 The run manifest includes the generator prompt/configuration and installed SDK version. Predictions retain fallback and cache status. The summary reports automated retrieval metrics, paired mean recall difference, fallback rate, cache hits, fresh call attempts, latency, and reported token usage for fresh calls only. Failed calls with unavailable usage are counted separately; token totals are not a complete billing estimate. No text-budget sweep or evidence-conditioned second hop is implemented here.
+
+## Local seq2seq decomposition
+
+Use `--generator-provider local` to run a Hugging Face encoder-decoder model without API credentials. Install `requirements-local-generator.txt` if needed. Model loading is lazy at the provider boundary, uses safetensors, disables remote code, and requires an explicit `--generator-revision`. The same strict JSON parser, fallback behavior, and retrieval budgets apply to local and API generation; malformed local output is not silently rewritten into successful queries.
+
+For a small integration pilot on already inspected questions:
+
+```sh
+python3 src/run_evaluation.py --first --count 5 --generator-provider local --generator-model google/flan-t5-small --generator-revision 0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab --generator-device cpu --generator-max-output-tokens 64 --generator-cache .cache/flan-small-pilot --output results/local-pilot-rerun
+```
+
+The [FLAN-T5 model card](https://huggingface.co/google/flan-t5-small) describes the encoder-decoder loading interface. This small model is a diagnostic integration baseline; support for local loading does not imply it produces faithful decomposition. CPU is the default. Greedy decoding uses one beam and no sampling; change `--generator-beams` explicitly for a beam-search ablation. Prompts exceeding `--generator-input-limit` fail into the logged fallback instead of truncating the question. Token-cap output without EOS is marked incomplete.
+
+Local cache identity includes provider, revision, device, input limit, beam count, and decoding settings, keeping local responses separate from API responses. Replay with the same settings plus `--generator-cache-only` does not load model weights. Summaries report fresh provider calls/tokens separately from API calls, so local generation is never presented as an API expense. Use the exclusion and pinned dataset/embedding settings from the automated-evaluation section for a subsequent fresh development study.

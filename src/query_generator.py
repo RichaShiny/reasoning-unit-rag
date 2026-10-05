@@ -44,7 +44,8 @@ def make_openai_provider(timeout=60):
 
 class QuestionGenerator:
     def __init__(self, model, cache_dir, provider=None, cache_only=False,
-                 max_output_tokens=512, reasoning_effort=None):
+                 max_output_tokens=512, reasoning_effort=None, provider_kind="openai_responses",
+                 provider_configuration=None):
         if not model or max_output_tokens < 1:
             raise ValueError('Explicit model and positive output-token limit required')
         if not cache_only and provider is None:
@@ -55,13 +56,16 @@ class QuestionGenerator:
         self.cache_only = cache_only
         self.max_output_tokens = max_output_tokens
         self.reasoning_effort = reasoning_effort
+        self.provider_kind = provider_kind
+        self.provider_configuration = provider_configuration or {}
 
     def configuration(self):
-        return {'provider': 'openai_responses', 'model': self.model,
+        return {'provider': self.provider_kind, 'provider_configuration': self.provider_configuration, 'model': self.model,
                 'prompt': PROMPT, 'cache_version': CACHE_VERSION,
                 'max_output_tokens': self.max_output_tokens,
                 'reasoning_effort': self.reasoning_effort,
-                'cache_only': self.cache_only, 'sdk_retries': 0,
+                'cache_only': self.cache_only,
+                'sdk_retries': 0 if self.provider_kind == 'openai_responses' else None,
                 'parser_policy': 'JSON list of 1-2 nonempty strings, max 240 characters each'}
 
     def generate(self, question):
@@ -74,6 +78,9 @@ class QuestionGenerator:
         if self.reasoning_effort is not None:
             request['reasoning'] = {'effort': self.reasoning_effort}
         identity = {'cache_version': CACHE_VERSION, 'request': request}
+        if self.provider_kind != 'openai_responses':
+            identity['provider'] = self.provider_kind
+            identity['provider_configuration'] = self.provider_configuration
         key = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
         path = self.cache_dir / f'{key}.json'
         cache_hit = path.exists()
@@ -121,4 +128,5 @@ class QuestionGenerator:
         return {'queries': queries, 'fallback': fallback_reason is not None,
                 'fallback_reason': fallback_reason, 'cache_key': key,
                 'cache_hit': cache_hit, 'response': response,
-                'api_call_attempted': not cache_hit}
+                'provider_call_attempted': not cache_hit,
+                'api_call_attempted': not cache_hit and self.provider_kind == 'openai_responses'}

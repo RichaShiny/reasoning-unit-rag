@@ -1,0 +1,5 @@
+# Optional local seq2seq generation; exact installed versions go in run manifests.
+transformers
+torch
+sentencepiece
+safetensors

@@ -98,3 +98,9 @@ Added question-level paired-bootstrap post-processing, artifact audits, actual s
 Added a strictly question-only generator adapter and evaluator integration with raw-response caching, configuration identity, malformed/incomplete/error fallback, and cache-only replay. The generator model is an explicit setting. Summaries record automated evidence metrics and fresh-call usage/fallback statistics. Added explicit prior-ID exclusions for the next fresh development sample.
 
 Offline tests cover the request boundary, parser, fallbacks, cache identities, shared budgets, unchanged baselines, SDK contract, and full cache-replay CLI flow. Existing saved baseline runs still pass artifact audits. No API key is configured here, so live-generation quality and retrieval gains remain unmeasured. Experiment 009 documents the implementation and next study.
+
+## Local generator implementation
+
+Added pinned Hugging Face seq2seq generation to the shared question-only/cache interface. Local runs require no API credentials; CPU/beam/input/output limits are explicit, and local caches are isolated by provider and decoding configuration. Overlong prompts are rejected rather than silently truncated. Local call/token counters remain separate from API call counters.
+
+Regression checks cover pinned loading, inference mode, safetensors/remote-code flags, greedy/beam parameters, overlong prompts, incomplete outputs, cache separation/replay, and accounting. A small integration pilot uses inspected questions; it must not be treated as held-out evidence.
