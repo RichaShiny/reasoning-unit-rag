@@ -110,3 +110,9 @@ Regression checks cover pinned loading, inference mode, safetensors/remote-code 
 The local pilot's startup stall exposed a gap: generator loading happened before the manifest existed. Moved lifecycle recording ahead of dependency loading, added flushed phase/progress messages, atomic manifest updates, failure/interruption states, saved-prediction counts, source hashes, and runtime/device metadata. No new model-quality result is claimed.
 
 Regression checks cover generator-startup failure, interruption after saved progress, completion, and refusing an existing output directory. Historical baseline artifacts continue to pass audits.
+
+## October 4, 2026 — actual local generator pilot
+
+Completed five inspected-example generations with pinned FLAN-T5-small on CPU using the base Python environment and the saved dataset sample. The virtual-environment import diagnostic had stalled during installed-package metadata scanning. Base imports and both model loads completed.
+
+All five raw responses failed JSON query parsing (an answer-like `no` and code-like strings), so all retrievals fell back to the original question. Recall 0.6467 and complete-evidence rate 40% therefore describe fallback on a debugging sample, not successful decomposition. Saved the raw responses/cache and completed a cache-only replay with five hits and zero provider calls; IDs, queries, evidence metrics, and rankings match. Both runs pass artifact audits. Next: debug prompt/model format fidelity before a fresh retrieval study.
