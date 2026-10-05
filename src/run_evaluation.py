@@ -140,11 +140,16 @@ def summarize(records):
                 r['methods']['original_question']['metrics']['recall'] for r in rows)
         generated = [r['generation'] for r in records]
         attempted = [g for g in generated if g['api_call_attempted']]
+        provider_attempts = [g for g in generated if g.get('provider_call_attempted', g['api_call_attempted'])]
         summary['generation'] = {
             'examples': len(generated),
             'fallbacks': sum(g['fallback'] for g in generated),
             'fallback_rate': mean(g['fallback'] for g in generated),
             'cache_hits': sum(g['cache_hit'] for g in generated),
+            'provider_call_attempts': len(provider_attempts),
+            'provider_latency_seconds': sum(g['response']['latency_seconds'] for g in provider_attempts),
+            'provider_input_tokens': sum((g['response'].get('usage') or {}).get('input_tokens', 0) for g in provider_attempts),
+            'provider_output_tokens': sum((g['response'].get('usage') or {}).get('output_tokens', 0) for g in provider_attempts),
             'api_call_attempts': len(attempted),
             'api_attempt_latency_seconds': sum(g['response']['latency_seconds'] for g in attempted),
             'reported_input_tokens_on_new_calls': sum((g['response'].get('usage') or {}).get('input_tokens', 0) for g in attempted),
@@ -172,7 +177,12 @@ def main():
     parser.add_argument('--first', action='store_true', help='Take ordered prefix rather than seeded sample')
     parser.add_argument('--top-k', type=int, default=5)
     parser.add_argument('--word-budget', type=int)
-    parser.add_argument('--generator-model', help='Explicit OpenAI model ID; enables automated retrieval')
+    parser.add_argument('--generator-provider', choices=['openai', 'local'], default='openai')
+    parser.add_argument('--generator-revision')
+    parser.add_argument('--generator-device', default='cpu')
+    parser.add_argument('--generator-input-limit', type=int, default=512)
+    parser.add_argument('--generator-beams', type=int, default=1)
+    parser.add_argument('--generator-model', help='Explicit generator model ID; enables automated retrieval')
     parser.add_argument('--generator-cache', type=Path)
     parser.add_argument('--generator-cache-only', action='store_true')
     parser.add_argument('--generator-max-output-tokens', type=int, default=512)
@@ -186,11 +196,31 @@ def main():
         if not args.generator_cache:
             parser.error('--generator-cache is required with --generator-model')
         from query_generator import QuestionGenerator, make_openai_provider
-        provider = None if args.generator_cache_only else make_openai_provider()
+        provider_configuration = {}
+        provider_kind = 'openai_responses'
+        if args.generator_provider == 'local':
+            if args.generator_reasoning_effort:
+                parser.error('Local seq2seq generation does not accept reasoning effort')
+            if not args.generator_revision:
+                parser.error('--generator-revision is required for local generation/replay')
+            if args.generator_input_limit < 1 or args.generator_beams < 1:
+                parser.error('Local input limit and beam count must be positive')
+            from local_generator import make_local_provider
+            provider_configuration = {'revision': args.generator_revision,
+                                      'device': args.generator_device,
+                                      'max_input_tokens': args.generator_input_limit,
+                                      'num_beams': args.generator_beams, 'do_sample': False}
+            provider_kind = 'local_seq2seq'
+            provider = None if args.generator_cache_only else make_local_provider(
+                args.generator_model, **{k: v for k, v in provider_configuration.items() if k != 'do_sample'})
+        else:
+            if args.generator_revision:
+                parser.error('Use a snapshot model ID for OpenAI; --generator-revision is local-only')
+            provider = None if args.generator_cache_only else make_openai_provider()
         generator = QuestionGenerator(args.generator_model, args.generator_cache, provider,
                                       args.generator_cache_only, args.generator_max_output_tokens,
-                                      args.generator_reasoning_effort)
-    elif args.generator_cache or args.generator_cache_only or args.generator_reasoning_effort:
+                                      args.generator_reasoning_effort, provider_kind, provider_configuration)
+    elif args.generator_cache or args.generator_cache_only or args.generator_reasoning_effort or args.generator_revision or args.generator_provider != 'openai':
         parser.error('Generator options require --generator-model')
     if args.input:
         dataset = json.loads(args.input.read_text(encoding='utf-8'))
@@ -211,7 +241,7 @@ def main():
         raise ValueError('Sample IDs must be present and unique')
     args.output.mkdir(parents=True, exist_ok=False)
     packages = {}
-    for package in ['numpy', 'sentence-transformers', 'datasets', 'torch', 'openai']:
+    for package in ['numpy', 'sentence-transformers', 'datasets', 'torch', 'openai', 'transformers', 'tokenizers', 'sentencepiece']:
         try:
             packages[package] = version(package)
         except PackageNotFoundError:
