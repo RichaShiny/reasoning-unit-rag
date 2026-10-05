@@ -1,5 +1,6 @@
 """Reproducible HotpotQA sentence retrieval with per-example evidence outputs."""
 import argparse
+import hashlib
 from collections import defaultdict
 from importlib.metadata import PackageNotFoundError, version
 import json
@@ -9,6 +10,7 @@ from statistics import mean
 
 from evidence import indexed_sentences
 from reasoning_units import generate_reasoning_units
+from run_state import RunState, write_json
 
 MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
 
@@ -159,10 +161,6 @@ def summarize(records):
     return summary
 
 
-def write_json(path, value):
-    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--input', type=Path, help='Local JSON list in Hugging Face HotpotQA schema')
@@ -191,7 +189,20 @@ def main():
     args = parser.parse_args()
     if args.top_k < 1 or (args.word_budget is not None and args.word_budget < 1):
         parser.error('Retrieval budgets must be positive')
+    configuration = {key: str(value) if isinstance(value, Path) else value
+                     for key, value in vars(args).items()}
+    with RunState(args.output, configuration) as state:
+        source_dir = Path(__file__).resolve().parent
+        state.info['source_sha256'] = {name: hashlib.sha256((source_dir / name).read_bytes()).hexdigest()
+                                   for name in ['run_evaluation.py', 'run_state.py', 'evidence.py',
+                                                'reasoning_units.py', 'query_generator.py', 'local_generator.py']}
+        state.save()
+        execute(args, parser, state)
+
+
+def execute(args, parser, state):
     generator = None
+    state.phase('loading_generator')
     if args.generator_model:
         if not args.generator_cache:
             parser.error('--generator-cache is required with --generator-model')
@@ -222,6 +233,7 @@ def main():
                                       args.generator_reasoning_effort, provider_kind, provider_configuration)
     elif args.generator_cache or args.generator_cache_only or args.generator_reasoning_effort or args.generator_revision or args.generator_provider != 'openai':
         parser.error('Generator options require --generator-model')
+    state.phase('loading_dataset')
     if args.input:
         dataset = json.loads(args.input.read_text(encoding='utf-8'))
     else:
@@ -239,27 +251,28 @@ def main():
     ids = [e.get('id', e.get('_id')) for e in examples]
     if any(i is None for i in ids) or len(set(ids)) != len(ids):
         raise ValueError('Sample IDs must be present and unique')
-    args.output.mkdir(parents=True, exist_ok=False)
     packages = {}
     for package in ['numpy', 'sentence-transformers', 'datasets', 'torch', 'openai', 'transformers', 'tokenizers', 'sentencepiece']:
         try:
             packages[package] = version(package)
         except PackageNotFoundError:
             packages[package] = None
-    manifest = {'status': 'started', 'configuration': {
-                    key: str(value) if isinstance(value, Path) else value
-                    for key, value in vars(args).items()},
+    manifest = state.info
+    manifest.update({
                 'example_ids': ids, 'excluded_example_ids': sorted(set(excluded_ids)), 'packages': packages,
                 'dataset_fingerprint': getattr(dataset, '_fingerprint', None),
                 'revisions_pinned': bool(args.model_revision and (args.input or args.dataset_revision)),
-                'budget_policy': 'Top-K unique sentences capped by optional title-inclusive word budget'}
+                'budget_policy': 'Top-K unique sentences capped by optional title-inclusive word budget'})
     if generator is not None:
         manifest['generator'] = generator.configuration()
     write_json(args.output / 'manifest.json', manifest)
     # Persist the exact sample, including evaluation labels, separately from generator inputs.
     write_json(args.output / 'examples.json', examples)
+    state.phase('loading_embedding_model')
     from sentence_transformers import SentenceTransformer
     encoder = SentenceTransformer(args.model, revision=args.model_revision)
+    manifest['runtime']['embedding_device'] = str(getattr(encoder, 'device', 'unknown'))
+    state.phase('evaluating')
     records = []
     with (args.output / 'predictions.jsonl').open('w', encoding='utf-8') as output:
         for example in examples:
@@ -267,9 +280,11 @@ def main():
             output.write(json.dumps(record, ensure_ascii=False) + '\n')
             output.flush()
             records.append(record)
+            manifest['processed_examples'] = len(records)
+            state.save()
+            if len(records) % 10 == 0 or len(records) == len(examples):
+                print(f'[evaluating] {len(records)}/{len(examples)}', flush=True)
     write_json(args.output / 'summary.json', summarize(records))
-    manifest['status'] = 'complete'
-    write_json(args.output / 'manifest.json', manifest)
     print(json.dumps(summarize(records), indent=2))
 
 

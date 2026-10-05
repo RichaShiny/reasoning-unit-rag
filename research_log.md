@@ -104,3 +104,9 @@ Offline tests cover the request boundary, parser, fallbacks, cache identities, s
 Added pinned Hugging Face seq2seq generation to the shared question-only/cache interface. Local runs require no API credentials; CPU/beam/input/output limits are explicit, and local caches are isolated by provider and decoding configuration. Overlong prompts are rejected rather than silently truncated. Local call/token counters remain separate from API call counters.
 
 Regression checks cover pinned loading, inference mode, safetensors/remote-code flags, greedy/beam parameters, overlong prompts, incomplete outputs, cache separation/replay, and accounting. A small integration pilot uses inspected questions; it must not be treated as held-out evidence.
+
+## Durable run lifecycle
+
+The local pilot's startup stall exposed a gap: generator loading happened before the manifest existed. Moved lifecycle recording ahead of dependency loading, added flushed phase/progress messages, atomic manifest updates, failure/interruption states, saved-prediction counts, source hashes, and runtime/device metadata. No new model-quality result is claimed.
+
+Regression checks cover generator-startup failure, interruption after saved progress, completion, and refusing an existing output directory. Historical baseline artifacts continue to pass audits.
