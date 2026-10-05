@@ -1,0 +1,10 @@
+{
+  "examples": 5,
+  "same_ids": true,
+  "same_raw_responses": true,
+  "same_queries_metrics_and_rankings": true,
+  "score_absolute_tolerance": 1e-06,
+  "replay_cache_hits": 5,
+  "replay_provider_calls": 0,
+  "scope": "Same-machine replay of an inspected debugging sample; not a held-out result."
+}
