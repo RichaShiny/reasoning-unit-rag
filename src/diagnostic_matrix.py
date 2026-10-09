@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 from statistics import mean
 import string
+from benchmark_validation import paired_fields, validate_benchmark
 from evidence import indexed_sentences, sentence_windows
 from paired_analysis import paired_interval
 from reasoning_units import generate_reasoning_units
@@ -15,12 +16,13 @@ from run_state import RunState, write_json
 
 
 def normalize(row, dataset):
+    validate_benchmark(row, dataset)
     if dataset in ('hotpotqa', '2wiki'):
         context = row['context']
-        pairs = zip(context['title'], context['sentences']) if isinstance(context, dict) else context
+        pairs = paired_fields(context, 'title', 'sentences', 'context')
         docs = [{'id': t, 'title': t, 'sentences': s} for t, s in pairs]
         facts = row['supporting_facts']
-        gold = list(zip(facts['title'], facts['sent_id'])) if isinstance(facts, dict) else facts
+        gold = paired_fields(facts, 'title', 'sent_id', 'supporting_facts')
         level, oracle = 'sentence', None
     else:
         docs = [{'id': str(p['idx']), 'title': p['title'], 'sentences':
