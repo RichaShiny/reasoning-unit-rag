@@ -140,3 +140,11 @@ New manifests record Python/platform, hashes of the evaluation source files, the
 ## Completed local pilot
 
 [Experiment 010](experiments/010_local_generator_pilot.md) records an actual five-question FLAN-T5-small run and offline cache replay. All five raw outputs failed the structured-query contract and fell back to original-question retrieval. This validates the failure/replay path; it supplies no successful-decomposition performance result. Raw responses and exact inputs are saved for reviewing the next prompt/model ablation.
+
+## Controlled diagnostic matrix
+
+The measurement-study extension crosses retrieval units and query types under
+shared global retrieval and context caps, with BM25, Contriever and configurable
+dense encoders. See [the protocol](experiments/011_factorial_diagnostics.md) for
+benchmark adapters, answer evaluation, paired confidence intervals and limitations.
+Run `python3 src/diagnostic_matrix.py --help` to start.
