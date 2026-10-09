@@ -24,7 +24,8 @@ HotpotQA/2Wiki oracle queries require independent annotations covering all quest
 
 ## Matched budgets and estimands
 
-For each candidate unit u and query set Q, score s(u,Q)=max over q in Q of s(u,q).
+By default, each candidate unit u and query set Q use s(u,Q)=max over q in Q of s(u,q).
+Use `--fusion rrf` to test rank fusion separately; see [fusion controls](014_query_fusion_controls.md).
 Rank once and examine only the global top K. Pack intact units in that order under
 one shared context cap B, including titles and context separators. No oversized-unit
 replacement search and no per-query K multiplication. More queries still cost more
@@ -45,7 +46,8 @@ Average questions, not facts. Report question-level percentile bootstrap interva
 Query effect is paired query recall minus original recall at a fixed unit/retriever.
 The unit interaction is (query-original at unit) minus (query-original at passage).
 `scripts/compare_matrix.py` computes the corresponding paired retriever interaction
-and rejects mismatched questions, annotations or budgets. Intervals are exploratory,
+and rejects mismatched questions, effective query lists, fusion/retention policies, annotations or budgets.
+Legacy predictions without the new fusion provenance must be regenerated for this comparison. Intervals are exploratory,
 uncorrected for multiple comparisons; predeclare primary contrasts before final runs.
 
 ## Running
