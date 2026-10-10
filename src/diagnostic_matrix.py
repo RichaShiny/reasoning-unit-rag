@@ -10,6 +10,7 @@ from statistics import mean
 import string
 from benchmark_validation import paired_fields, validate_benchmark
 from evidence import indexed_sentences, sentence_windows
+from evidence_metrics import metric_contract, retrieval_metrics, validate_metric_records
 from paired_analysis import paired_interval
 from query_fusion import fuse_scores, prepare_queries
 from reasoning_units import generate_reasoning_units
@@ -135,13 +136,7 @@ def retrieve(items, scores, k, budget, cost):
 
 
 def metrics(example, selected):
-    facts = {(i['document_id'], sid) for i in selected for sid in i['sentence_ids']}
-    pages = {i['document_id'] for i in selected}
-    gold = example['gold']
-    hits = gold & facts if example['evidence_level'] == 'sentence' else {f for f in gold if f[0] in pages}
-    return dict(evidence_recall=len(hits)/len(gold), complete_evidence=int(hits == gold),
-                page_coverage=len(pages & {f[0] for f in gold})/len({f[0] for f in gold}),
-                context_cost=sum(i['context_cost'] for i in selected))
+    return retrieval_metrics(example, selected)
 
 
 def answer_metrics(prediction, answers):
@@ -196,11 +191,12 @@ def evaluate(example, backend, query_sets, k, budget, cost, answers=None, *,
                 cell['answer'] = prediction
                 cell['metrics'].update(answer_metrics(prediction, [example['answer'], *example['aliases']]))
             cells[key] = cell
-    return dict(example_id=example['id'], evidence_level=example['evidence_level'], cells=cells)
+    return dict(example_id=example['id'], **metric_contract(example['evidence_level']), cells=cells)
 
 
 def summary(records, resamples, seed):
-    report = dict(examples=len(records), cells={}, query_effects={}, interactions={})
+    contract = validate_metric_records(records)
+    report = dict(**contract, examples=len(records), cells={}, query_effects={}, interactions={})
     keys = list(records[0]['cells'])
     if any(set(r['cells']) != set(keys) for r in records):
         raise ValueError('Conditions must cover all questions')
@@ -218,7 +214,7 @@ def summary(records, resamples, seed):
             m: paired_interval([r['cells'][key]['metrics'][m]-r['cells'][base]['metrics'][m] for r in records], resamples, seed)
             for m in records[0]['cells'][key]['metrics']}
         if unit != 'passage':
-            m = 'evidence_recall'
+            m = contract['primary_metric']
             deltas = [(r['cells'][key]['metrics'][m]-r['cells'][base]['metrics'][m]) -
                       (r['cells']['passage/'+query]['metrics'][m]-r['cells']['passage/original']['metrics'][m]) for r in records]
             report['interactions'][key] = paired_interval(deltas, resamples, seed)
@@ -301,7 +297,8 @@ def main():
                                original_question_policy=a.original_question,
                                query_types=list(sets[0]),
                                fusion_source_sha256=hashlib.sha256(Path(__file__).with_name('query_fusion.py').read_bytes()).hexdigest(),
-                               evidence_level=examples[0]['evidence_level'],
+                               **metric_contract(examples[0]['evidence_level']),
+                               metric_source_sha256=hashlib.sha256(Path(__file__).with_name('evidence_metrics.py').read_bytes()).hexdigest(),
                                annotation_sha256=hashlib.sha256(a.queries.read_bytes()).hexdigest() if a.queries else None,
                                answers_sha256=hashlib.sha256(a.answers.read_bytes()).hexdigest() if a.answers else None))
         state.phase('evaluating')
