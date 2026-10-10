@@ -16,7 +16,9 @@ remain exploratory. Use a separate held-out split after fixing hyperparameters.
 2WikiMultihopQA JSON, and MuSiQue JSONL. These are per-question provided-candidate
 experiments, **not open-domain retrieval**. MuSiQue unanswerable examples are excluded
 and counted. MuSiQue evidence is paragraph-level: sentence retrieval touching a
-supporting paragraph earns paragraph coverage, not verified sentence support.
+supporting paragraph earns `supporting_paragraph_coverage`, not verified sentence support.
+The [version-2 metric contract](015_evidence_metric_semantics.md) keeps that proxy separate
+from sentence evidence and requires regeneration of legacy matrix outputs for analysis.
 Its regex sentence splitter is deterministic but should be audited before final runs.
 MuSiQue oracle queries substitute prior gold answers into dependency placeholders;
 this is explicitly privileged oracle information, never a deployable query generator.
@@ -41,9 +43,11 @@ uses attention-masked mean pooling, L2 normalization, and a 512-token input limi
 Dense sentence-transformer models use encode_query/encode_document for asymmetric
 prompts. Pin revisions and audit truncation for the chosen models.
 
-For each question measure gold-evidence recall, complete evidence and page coverage.
-Average questions, not facts. Report question-level percentile bootstrap intervals.
-Query effect is paired query recall minus original recall at a fixed unit/retriever.
+For sentence-labeled benchmarks measure gold-sentence recall, complete evidence and page coverage.
+For MuSiQue measure supporting-paragraph coverage and whether all supporting paragraphs were touched.
+Average questions, not facts, and keep these different evidence levels separate. Report question-level percentile bootstrap intervals.
+Query effect is the paired query-minus-original difference at a fixed unit/retriever,
+using sentence recall or paragraph coverage as explicitly recorded in `primary_metric`.
 The unit interaction is (query-original at unit) minus (query-original at passage).
 `scripts/compare_matrix.py` computes the corresponding paired retriever interaction
 and rejects mismatched questions, effective query lists, fusion/retention policies, annotations or budgets.
