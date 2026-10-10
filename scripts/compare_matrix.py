@@ -19,6 +19,17 @@ def compare(left, right, resamples=10000, seed=42):
     keys = set(left[0]['cells'])
     if any(set(r['cells']) != keys for r in left+right):
         raise ValueError('Retriever comparisons require identical cells')
+    # Query/fusion changes are interventions, not retriever-only comparisons.
+    fields = ('queries', 'fusion', 'rrf_k', 'original_question_policy')
+    for identifier in a:
+        if a[identifier]['evidence_level'] != b[identifier]['evidence_level']:
+            raise ValueError('Retriever comparisons require identical evidence levels')
+        for key in keys:
+            for field in fields:
+                if field not in a[identifier]['cells'][key] or field not in b[identifier]['cells'][key]:
+                    raise ValueError('Missing comparison provenance: ' + field + '; regenerate legacy runs')
+                if a[identifier]['cells'][key][field] != b[identifier]['cells'][key][field]:
+                    raise ValueError('Mismatch in ' + field + ' for ' + identifier + '/' + key)
     result = {}
     for key in sorted(keys):
         unit, query = key.split('/')
@@ -40,7 +51,8 @@ if __name__ == '__main__':
     p.add_argument('--resamples', type=int, default=10000)
     args = p.parse_args()
     manifests = [json.loads((path.parent/'manifest.json').read_text()) for path in (args.left,args.right)]
-    for field in ('input_sha256','annotation_sha256','budget_unit','budget_policy'):
+    for field in ('input_sha256','annotation_sha256','budget_unit','budget_policy',
+                  'fusion','rrf_k','original_question_policy','query_types'):
         if manifests[0].get(field) != manifests[1].get(field):
             raise ValueError('Mismatch in '+field)
     for field in ('top_k','context_budget','tokenizer','tokenizer_revision'):

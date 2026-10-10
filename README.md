@@ -148,3 +148,5 @@ shared global retrieval and context caps, with BM25, Contriever and configurable
 dense encoders. See [the protocol](experiments/011_factorial_diagnostics.md) for
 benchmark adapters, answer evaluation, paired confidence intervals and limitations.
 Run `python3 src/diagnostic_matrix.py --help` to start.
+
+The matrix also exposes [query fusion and original-question retention controls](experiments/014_query_fusion_controls.md). Use `--fusion max|rrf`, `--original-question as-provided|include|exclude`, and `--query-types` to make these interventions explicit. Defaults retain max fusion and the provided query lists.

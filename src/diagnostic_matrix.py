@@ -11,6 +11,7 @@ import string
 from benchmark_validation import paired_fields, validate_benchmark
 from evidence import indexed_sentences, sentence_windows
 from paired_analysis import paired_interval
+from query_fusion import fuse_scores, prepare_queries
 from reasoning_units import generate_reasoning_units
 from run_state import RunState, write_json
 
@@ -167,16 +168,25 @@ def query_list(value):
     return list(dict.fromkeys(q.strip() for q in value))
 
 
-def evaluate(example, backend, query_sets, k, budget, cost, answers=None):
+def evaluate(example, backend, query_sets, k, budget, cost, answers=None, *,
+             fusion='max', rrf_k=60, original_question='as-provided'):
     cells = {}
     for unit in ('passage', 'sentence', 'window'):
         items = candidates(example['documents'], unit)
         for query_type, queries in query_sets.items():
+            queries = prepare_queries(example['question'], queries, original_question, query_type == 'original')
             matrix = backend.score(queries, [i['text'] for i in items])
-            scores = [max(row[i] for row in matrix) for i in range(len(items))]
+            if len(matrix) != len(queries):
+                raise ValueError('Backend must return one score row per effective query')
+            scores = fuse_scores(matrix, len(items), fusion, rrf_k)
             selected, examined = retrieve(items, scores, k, budget, cost)
             key = unit + '/' + query_type
-            cell = dict(queries=queries, retrieved=selected, examined_candidates=examined,
+            cell = dict(queries=queries, query_count=len(queries),
+                        original_question_included=example['question'].strip() in queries,
+                        fusion=fusion, rrf_k=rrf_k if fusion == 'rrf' else None,
+                        original_question_policy=original_question,
+                        scored_query_candidate_pairs=len(queries)*len(items),
+                        retrieved=selected, examined_candidates=examined,
                         candidate_count=len(items), metrics=metrics(example, selected),
                         reader_input=dict(question=example['question'], context='\n\n'.join(i['text'] for i in selected)))
             if answers is not None:
@@ -224,6 +234,12 @@ def main():
     p.add_argument('--model-revision')
     p.add_argument('--queries', type=Path, help='ID -> {oracle: [...], llm: [...]}')
     p.add_argument('--answers', type=Path, help='ID -> {unit/query: answer}, fixed reader on exported inputs')
+    p.add_argument('--fusion', choices=['max', 'rrf'], default='max')
+    p.add_argument('--rrf-k', type=int, default=60, help='Positive RRF rank constant')
+    p.add_argument('--original-question', choices=['as-provided', 'include', 'exclude'], default='as-provided',
+                   help='Retention policy for non-original conditions; exclusion requires a remaining query')
+    p.add_argument('--query-types', nargs='+', choices=['original', 'rule', 'oracle', 'llm'],
+                   help='Selected conditions; must include original. Default: every available condition')
     p.add_argument('--top-k', type=int, default=5)
     p.add_argument('--context-budget', type=int, required=True)
     p.add_argument('--tokenizer', help='Fixed reader tokenizer; omission explicitly uses words')
@@ -232,8 +248,10 @@ def main():
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
-    if min(a.top_k, a.context_budget, a.resamples) < 1:
-        p.error('Budgets and resamples must be positive')
+    if min(a.top_k, a.context_budget, a.resamples, a.rrf_k) < 1:
+        p.error('Budgets, resamples and RRF constant must be positive')
+    if a.query_types and ('original' not in a.query_types or len(set(a.query_types)) != len(a.query_types)):
+        p.error('--query-types must contain original and no duplicates')
     config = {k: str(v) if isinstance(v, Path) else v for k, v in vars(a).items()}
     with RunState(a.output, config) as state:
         raw = a.input.read_bytes()
@@ -252,6 +270,12 @@ def main():
                 if name not in ('oracle', 'llm'):
                     raise ValueError('Only oracle and llm annotations allowed')
                 q[name] = query_list(value)
+            if a.query_types:
+                if not set(a.query_types) <= q.keys():
+                    raise ValueError('Requested query conditions missing for ' + e['id'])
+                q = {name: q[name] for name in a.query_types}
+            q = {name: prepare_queries(e['question'], queries, a.original_question, name == 'original')
+                 for name, queries in q.items()}
             sets.append(q)
         if any(set(q) != set(sets[0]) for q in sets):
             raise ValueError('Oracle/LLM annotations must cover every question')
@@ -272,7 +296,11 @@ def main():
                                example_ids=[e['id'] for e in examples], excluded_unanswerable=len(rows)-len(examples),
                                corpus_scope='per-question provided candidates; not open-domain',
                                budget_unit='tokens' if a.tokenizer else 'words',
-                               budget_policy='global top K after max fusion, intact-unit context cap',
+                               budget_policy='global top K after fusion, intact-unit context cap',
+                               fusion=a.fusion, rrf_k=a.rrf_k if a.fusion == 'rrf' else None,
+                               original_question_policy=a.original_question,
+                               query_types=list(sets[0]),
+                               fusion_source_sha256=hashlib.sha256(Path(__file__).with_name('query_fusion.py').read_bytes()).hexdigest(),
                                evidence_level=examples[0]['evidence_level'],
                                annotation_sha256=hashlib.sha256(a.queries.read_bytes()).hexdigest() if a.queries else None,
                                answers_sha256=hashlib.sha256(a.answers.read_bytes()).hexdigest() if a.answers else None))
@@ -280,7 +308,8 @@ def main():
         records = []
         with (a.output/'predictions.jsonl').open('x') as stream:
             for e, q in zip(examples, sets):
-                record = evaluate(e, backend, q, a.top_k, a.context_budget, cost, answers)
+                record = evaluate(e, backend, q, a.top_k, a.context_budget, cost, answers,
+                                  fusion=a.fusion, rrf_k=a.rrf_k, original_question=a.original_question)
                 stream.write(json.dumps(record)+'\n')
                 stream.flush()
                 records.append(record)
