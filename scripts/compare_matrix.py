@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'src'))
 from paired_analysis import paired_interval
 from evidence_metrics import validate_metric_records
+from matrix_artifacts import load_matrix_run, validate_comparison_manifests
 
 
 def compare(left, right, resamples=10000, seed=42):
@@ -53,22 +54,23 @@ if __name__ == '__main__':
     p.add_argument('right', type=Path)
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--resamples', type=int, default=10000)
+    p.add_argument('--seed', type=int, default=42)
     args = p.parse_args()
-    manifests = [json.loads((path.parent/'manifest.json').read_text()) for path in (args.left,args.right)]
-    for field in ('input_sha256','annotation_sha256','budget_unit','budget_policy',
-                  'fusion','rrf_k','original_question_policy','query_types',
-                  'metric_schema_version','evidence_level','primary_metric','evidence_interpretation'):
-        if manifests[0].get(field) != manifests[1].get(field):
-            raise ValueError('Mismatch in '+field)
-    for field in ('top_k','context_budget','tokenizer','tokenizer_revision'):
-        if manifests[0]['configuration'][field] != manifests[1]['configuration'][field]:
-            raise ValueError('Mismatch in '+field)
-    rows = [[json.loads(l) for l in path.read_text().splitlines() if l.strip()] for path in (args.left,args.right)]
+    if args.resamples < 1:
+        p.error('--resamples must be positive')
+    loaded = [load_matrix_run(path) for path in (args.left, args.right)]
+    manifests = [item[0] for item in loaded]
+    rows = [item[1] for item in loaded]
+    validate_comparison_manifests(*manifests)
     contract = validate_metric_records(rows[0])
-    for manifest in manifests:
-        if any(manifest.get(field) != value for field, value in contract.items()):
-            raise ValueError('Manifest metric contract does not match predictions')
     report = dict(**contract, interpretation='Query benefit in right retriever minus query benefit in left retriever',
-                  effects=compare(*rows, resamples=args.resamples))
+                  bootstrap=dict(resamples=args.resamples, seed=args.seed),
+                  runs=[dict(predictions=str(path), examples=len(records),
+                             input_sha256=manifest['input_sha256'], source_sha256=manifest['source_sha256'],
+                             retriever=manifest['configuration'].get('retriever'),
+                             model=manifest['configuration'].get('model'),
+                             model_revision=manifest['configuration'].get('model_revision'))
+                        for path, (manifest, records) in zip((args.left, args.right), loaded)],
+                  effects=compare(*rows, resamples=args.resamples, seed=args.seed))
     with args.output.open('x') as output:
         json.dump(report, output, indent=2)
