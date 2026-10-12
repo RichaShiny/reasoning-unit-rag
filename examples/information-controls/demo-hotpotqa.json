@@ -1,0 +1,37 @@
+[
+  {
+    "id": "synthetic-bridge-1",
+    "question": "Where was the author of The Lantern born?",
+    "answer": "Harbor City",
+    "context": [
+      [
+        "The Lantern",
+        [
+          "The Lantern was written by Mira Vale."
+        ]
+      ],
+      [
+        "Mira Vale",
+        [
+          "Mira Vale was born in Harbor City."
+        ]
+      ],
+      [
+        "Harbor City",
+        [
+          "Harbor City has a large lighthouse."
+        ]
+      ]
+    ],
+    "supporting_facts": [
+      [
+        "The Lantern",
+        0
+      ],
+      [
+        "Mira Vale",
+        0
+      ]
+    ]
+  }
+]

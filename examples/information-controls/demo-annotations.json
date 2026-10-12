@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "examples": {
+    "synthetic-bridge-1": {
+      "question": "Where was the author of The Lantern born?",
+      "steps": [
+        "Who wrote The Lantern?",
+        "Where was {author} born?"
+      ],
+      "bridges": {
+        "author": {
+          "description": "the author of The Lantern",
+          "entity": "Mira Vale"
+        }
+      },
+      "provenance": {
+        "author": "repository synthetic fixture",
+        "source": "invented integration example; not benchmark data"
+      }
+    }
+  }
+}

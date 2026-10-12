@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import re
 from evidence_metrics import validate_metric_records
+from information_controls import CONDITIONS, PROTOCOL
 
 COMPARISON_FIELDS = (
     'input_sha256', 'annotation_sha256', 'budget_unit', 'budget_policy',
@@ -42,6 +43,12 @@ def load_matrix_run(path):
     if (not isinstance(queries, list) or not queries or any(not isinstance(q, str) or not q for q in queries)
             or len(set(queries)) != len(queries) or 'original' not in queries):
         raise ValueError('Manifest requires unique query types including original')
+    if set(queries) & set(CONDITIONS[1:]):
+        if set(queries) != set(CONDITIONS) or manifest.get('information_control_protocol') != PROTOCOL:
+            raise ValueError('Information controls require the complete declared protocol')
+        source = manifest.get('information_control_source_sha256')
+        if not isinstance(source, str) or not re.fullmatch('[0-9a-f]{64}', source):
+            raise ValueError('Missing information-control source hash')
     keys = {unit+'/'+query for unit in ('passage', 'sentence', 'window') for query in queries}
     for record in records:
         if set(record['cells']) != keys:
@@ -54,6 +61,10 @@ def load_matrix_run(path):
 
 
 def validate_comparison_manifests(left, right):
+    if left.get('information_control_protocol') is not None or right.get('information_control_protocol') is not None:
+        for field in ('information_control_protocol', 'information_control_source_sha256'):
+            if not left.get(field) or left[field] != right.get(field):
+                raise ValueError('Mismatch in ' + field)
     for field in COMPARISON_FIELDS:
         if left[field] != right[field]:
             raise ValueError('Mismatch in ' + field)
