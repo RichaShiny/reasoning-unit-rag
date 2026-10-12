@@ -31,7 +31,7 @@ class MatrixTests(unittest.TestCase):
         self.assertEqual(ex['gold'], {('0', None)})
         self.assertEqual(ex['oracle'], ['Sub?', 'Where is Bridge?'])
         result = evaluate(ex, BM25(), {'original':['Q?']}, 1, 100, lambda t:len(t.split()))
-        self.assertEqual(result['cells']['sentence/original']['metrics']['evidence_recall'], 1)
+        self.assertEqual(result['cells']['sentence/original']['metrics']['supporting_paragraph_coverage'], 1)
 
     def test_labels_do_not_change_nonoracle_rankings(self):
         ex = normalize(ROW, 'hotpotqa')
