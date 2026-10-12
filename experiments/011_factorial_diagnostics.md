@@ -50,7 +50,8 @@ Query effect is the paired query-minus-original difference at a fixed unit/retri
 using sentence recall or paragraph coverage as explicitly recorded in `primary_metric`.
 The unit interaction is (query-original at unit) minus (query-original at passage).
 `scripts/compare_matrix.py` computes the corresponding paired retriever interaction
-and rejects mismatched questions, effective query lists, fusion/retention policies, annotations or budgets.
+and [requires completed runs](017_complete_run_comparisons.md), rejecting mismatched questions,
+effective query lists, fusion/retention policies, annotations, budgets or recorded evaluator versions.
 Legacy predictions without the new fusion provenance must be regenerated for this comparison. Intervals are exploratory,
 uncorrected for multiple comparisons; predeclare primary contrasts before final runs.
 
