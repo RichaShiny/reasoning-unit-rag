@@ -152,3 +152,5 @@ Run `python3 src/diagnostic_matrix.py --help` to start.
 The matrix also exposes [query fusion and original-question retention controls](experiments/014_query_fusion_controls.md). Use `--fusion max|rrf`, `--original-question as-provided|include|exclude`, and `--query-types` to make these interventions explicit. Defaults retain max fusion and the provided query lists.
 
 [Evidence metric schema v2](experiments/015_evidence_metric_semantics.md) separates sentence-support recall from MuSiQue supporting-paragraph coverage. Matrix summaries and comparisons reject mixed evidence levels and legacy records without the explicit metric contract; regenerate those runs in new output directories.
+
+[Bound reader requests](experiments/016_reader_answer_provenance.md) tie answer predictions to their exact declared question, context, model, prompt and settings. Use `scripts/export_reader_requests.py` and a versioned answer bundle; bare answer maps are no longer accepted.
