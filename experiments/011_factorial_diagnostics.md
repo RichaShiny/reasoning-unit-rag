@@ -76,9 +76,10 @@ Supply `--queries queries.json` with this format for every input ID:
 Generate LLM annotations once with the existing question-only `QuestionGenerator`,
 freeze them across retrievers and units, and preserve its model/prompt/cache provenance.
 Missing condition coverage fails instead of silently selecting a favorable subset.
-For final answers, export each cell's `reader_input`, run the same fixed reader,
-then provide `--answers answers.json` (ID -> {"passage/original": "answer", ...}) in a
-new run. The runner does not call a reader API or invent predictions. EM/token F1
+For final answers, use [bound reader requests](016_reader_answer_provenance.md):
+export with `scripts/export_reader_requests.py`, run the declared fixed reader,
+then provide `--reader-config reader.json --answers answers.json` in a new run.
+Every prediction must carry its exported request hash; legacy bare answer maps are rejected. The runner does not call a reader API or invent predictions. EM/token F1
 are generic normalized answer metrics; also use native dataset evaluation scripts
 before claiming official benchmark scores. Never let the reader see oracle queries
 or labels: only the original question and exported retrieved context.

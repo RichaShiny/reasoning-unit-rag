@@ -14,6 +14,8 @@ from evidence_metrics import metric_contract, retrieval_metrics, validate_metric
 from paired_analysis import paired_interval
 from query_fusion import fuse_scores, prepare_queries
 from reasoning_units import generate_reasoning_units
+from reader_provenance import (BoundAnswers, digest, reader_request, validate_reader_config,
+                               validate_reader_records, READER_SCHEMA_VERSION)
 from run_state import RunState, write_json
 
 
@@ -164,7 +166,14 @@ def query_list(value):
 
 
 def evaluate(example, backend, query_sets, k, budget, cost, answers=None, *,
-             fusion='max', rrf_k=60, original_question='as-provided'):
+             fusion='max', rrf_k=60, original_question='as-provided', reader_config=None):
+    if reader_config is not None:
+        validate_reader_config(reader_config)
+    if answers is not None:
+        if not isinstance(answers, BoundAnswers) or reader_config is None:
+            raise ValueError('Answer evaluation requires BoundAnswers and reader_config')
+        if answers.reader_config_sha256 != digest(reader_config):
+            raise ValueError('Answer reader configuration mismatch')
     cells = {}
     for unit in ('passage', 'sentence', 'window'):
         items = candidates(example['documents'], unit)
@@ -184,19 +193,23 @@ def evaluate(example, backend, query_sets, k, budget, cost, answers=None, *,
                         retrieved=selected, examined_candidates=examined,
                         candidate_count=len(items), metrics=metrics(example, selected),
                         reader_input=dict(question=example['question'], context='\n\n'.join(i['text'] for i in selected)))
+            cell['reader_input_sha256'] = digest(cell['reader_input'])
+            if reader_config is not None:
+                request = reader_request(cell['reader_input'], reader_config)
+                cell.update({field: request[field] for field in ('reader_config_sha256', 'reader_request_sha256')})
             if answers is not None:
-                prediction = answers[example['id']][key]
-                if not isinstance(prediction, str):
-                    raise ValueError('Answer predictions must be strings')
+                prediction = answers.answer(example['id'], key, cell['reader_request_sha256'])
                 cell['answer'] = prediction
                 cell['metrics'].update(answer_metrics(prediction, [example['answer'], *example['aliases']]))
             cells[key] = cell
-    return dict(example_id=example['id'], **metric_contract(example['evidence_level']), cells=cells)
+    return dict(example_id=example['id'], **metric_contract(example['evidence_level']),
+                reader_config_sha256=digest(reader_config) if reader_config is not None else None, cells=cells)
 
 
 def summary(records, resamples, seed):
     contract = validate_metric_records(records)
-    report = dict(**contract, examples=len(records), cells={}, query_effects={}, interactions={})
+    reader_hash = validate_reader_records(records)
+    report = dict(**contract, reader_config_sha256=reader_hash, examples=len(records), cells={}, query_effects={}, interactions={})
     keys = list(records[0]['cells'])
     if any(set(r['cells']) != set(keys) for r in records):
         raise ValueError('Conditions must cover all questions')
@@ -229,7 +242,8 @@ def main():
     p.add_argument('--model')
     p.add_argument('--model-revision')
     p.add_argument('--queries', type=Path, help='ID -> {oracle: [...], llm: [...]}')
-    p.add_argument('--answers', type=Path, help='ID -> {unit/query: answer}, fixed reader on exported inputs')
+    p.add_argument('--answers', type=Path, help='Versioned answers bound to exported reader request hashes')
+    p.add_argument('--reader-config', type=Path, help='Fixed model/revision/prompt/decoding JSON; required with --answers')
     p.add_argument('--fusion', choices=['max', 'rrf'], default='max')
     p.add_argument('--rrf-k', type=int, default=60, help='Positive RRF rank constant')
     p.add_argument('--original-question', choices=['as-provided', 'include', 'exclude'], default='as-provided',
@@ -248,6 +262,8 @@ def main():
         p.error('Budgets, resamples and RRF constant must be positive')
     if a.query_types and ('original' not in a.query_types or len(set(a.query_types)) != len(a.query_types)):
         p.error('--query-types must contain original and no duplicates')
+    if a.answers and not a.reader_config:
+        p.error('--answers requires --reader-config')
     config = {k: str(v) if isinstance(v, Path) else v for k, v in vars(a).items()}
     with RunState(a.output, config) as state:
         raw = a.input.read_bytes()
@@ -256,7 +272,8 @@ def main():
         if not examples or len({e['id'] for e in examples}) != len(examples):
             raise ValueError('Require nonempty examples with unique IDs')
         annotations = json.loads(a.queries.read_text()) if a.queries else {}
-        answers = json.loads(a.answers.read_text()) if a.answers else None
+        reader_config = validate_reader_config(json.loads(a.reader_config.read_text())) if a.reader_config else None
+        answers = BoundAnswers(json.loads(a.answers.read_text()), reader_config) if a.answers else None
         sets = []
         for e in examples:
             q = dict(original=[e['question']], rule=query_list(generate_reasoning_units(e['question']) or [e['question']]))
@@ -275,6 +292,9 @@ def main():
             sets.append(q)
         if any(set(q) != set(sets[0]) for q in sets):
             raise ValueError('Oracle/LLM annotations must cover every question')
+        if answers is not None:
+            answers.check_coverage({e['id']: {unit+'/'+name for unit in ('passage', 'sentence', 'window') for name in q}
+                                    for e, q in zip(examples, sets)})
         cost = lambda t: len(t.split())
         if a.tokenizer:
             from transformers import AutoTokenizer
@@ -300,13 +320,17 @@ def main():
                                **metric_contract(examples[0]['evidence_level']),
                                metric_source_sha256=hashlib.sha256(Path(__file__).with_name('evidence_metrics.py').read_bytes()).hexdigest(),
                                annotation_sha256=hashlib.sha256(a.queries.read_bytes()).hexdigest() if a.queries else None,
+                               reader_schema_version=READER_SCHEMA_VERSION,
+                               reader_config=reader_config,
+                               reader_config_sha256=digest(reader_config) if reader_config is not None else None,
+                               reader_source_sha256=hashlib.sha256(Path(__file__).with_name('reader_provenance.py').read_bytes()).hexdigest(),
                                answers_sha256=hashlib.sha256(a.answers.read_bytes()).hexdigest() if a.answers else None))
         state.phase('evaluating')
         records = []
         with (a.output/'predictions.jsonl').open('x') as stream:
             for e, q in zip(examples, sets):
                 record = evaluate(e, backend, q, a.top_k, a.context_budget, cost, answers,
-                                  fusion=a.fusion, rrf_k=a.rrf_k, original_question=a.original_question)
+                                  fusion=a.fusion, rrf_k=a.rrf_k, original_question=a.original_question, reader_config=reader_config)
                 stream.write(json.dumps(record)+'\n')
                 stream.flush()
                 records.append(record)
