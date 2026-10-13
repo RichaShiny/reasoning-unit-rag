@@ -154,3 +154,5 @@ The matrix also exposes [query fusion and original-question retention controls](
 [Evidence metric schema v2](experiments/015_evidence_metric_semantics.md) separates sentence-support recall from MuSiQue supporting-paragraph coverage. Matrix summaries and comparisons reject mixed evidence levels and legacy records without the explicit metric contract; regenerate those runs in new output directories.
 
 [Bound reader requests](experiments/016_reader_answer_provenance.md) tie answer predictions to their exact declared question, context, model, prompt and settings. Use `scripts/export_reader_requests.py` and a versioned answer bundle; bare answer maps are no longer accepted.
+
+[Information-controlled queries](experiments/018_information_controlled_queries.md) compare the original question and a shared decomposition, each with and without supplied bridge entities. `--information-controls` requires reviewed annotations for every evaluated question and reports paired contrasts and interactions. A runnable synthetic demo is included; it is not benchmark evidence.

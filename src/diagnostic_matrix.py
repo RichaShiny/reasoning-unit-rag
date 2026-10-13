@@ -14,6 +14,7 @@ from evidence_metrics import metric_contract, retrieval_metrics, validate_metric
 from paired_analysis import paired_interval
 from query_fusion import fuse_scores, prepare_queries
 from reasoning_units import generate_reasoning_units
+from information_controls import load_conditions, information_effects, PROTOCOL
 from reader_provenance import (BoundAnswers, digest, reader_request, validate_reader_config,
                                validate_reader_records, READER_SCHEMA_VERSION)
 from run_state import RunState, write_json
@@ -186,6 +187,7 @@ def evaluate(example, backend, query_sets, k, budget, cost, answers=None, *,
             selected, examined = retrieve(items, scores, k, budget, cost)
             key = unit + '/' + query_type
             cell = dict(queries=queries, query_count=len(queries),
+                        query_word_count=sum(len(query.split()) for query in queries),
                         original_question_included=example['question'].strip() in queries,
                         fusion=fusion, rrf_k=rrf_k if fusion == 'rrf' else None,
                         original_question_policy=original_question,
@@ -231,6 +233,9 @@ def summary(records, resamples, seed):
             deltas = [(r['cells'][key]['metrics'][m]-r['cells'][base]['metrics'][m]) -
                       (r['cells']['passage/'+query]['metrics'][m]-r['cells']['passage/original']['metrics'][m]) for r in records]
             report['interactions'][key] = paired_interval(deltas, resamples, seed)
+    effects = information_effects(records, resamples, seed)
+    if effects is not None:
+        report['information_effects'] = effects
     return report
 
 
@@ -242,6 +247,7 @@ def main():
     p.add_argument('--model')
     p.add_argument('--model-revision')
     p.add_argument('--queries', type=Path, help='ID -> {oracle: [...], llm: [...]}')
+    p.add_argument('--information-controls', type=Path, help='Paired decomposition/bridge annotations; runs four fixed conditions')
     p.add_argument('--answers', type=Path, help='Versioned answers bound to exported reader request hashes')
     p.add_argument('--reader-config', type=Path, help='Fixed model/revision/prompt/decoding JSON; required with --answers')
     p.add_argument('--fusion', choices=['max', 'rrf'], default='max')
@@ -262,6 +268,8 @@ def main():
         p.error('Budgets, resamples and RRF constant must be positive')
     if a.query_types and ('original' not in a.query_types or len(set(a.query_types)) != len(a.query_types)):
         p.error('--query-types must contain original and no duplicates')
+    if a.information_controls and (a.queries or a.query_types or a.original_question != 'as-provided'):
+        p.error('--information-controls requires the four fixed conditions, no --queries/--query-types, and as-provided retention')
     if a.answers and not a.reader_config:
         p.error('--answers requires --reader-config')
     config = {k: str(v) if isinstance(v, Path) else v for k, v in vars(a).items()}
@@ -271,11 +279,13 @@ def main():
         examples = [normalize(r, a.dataset) for r in rows if r.get('answerable', True)]
         if not examples or len({e['id'] for e in examples}) != len(examples):
             raise ValueError('Require nonempty examples with unique IDs')
-        annotations = json.loads(a.queries.read_text()) if a.queries else {}
+        annotation_path = a.information_controls or a.queries
+        annotation_raw = annotation_path.read_bytes() if annotation_path else None
+        annotations = json.loads(annotation_raw) if a.queries else {}
         reader_config = validate_reader_config(json.loads(a.reader_config.read_text())) if a.reader_config else None
         answers = BoundAnswers(json.loads(a.answers.read_text()), reader_config) if a.answers else None
         sets = []
-        for e in examples:
+        for e in ([] if a.information_controls else examples):
             q = dict(original=[e['question']], rule=query_list(generate_reasoning_units(e['question']) or [e['question']]))
             if e['oracle']:
                 q['oracle'] = query_list(e['oracle'])
@@ -290,6 +300,8 @@ def main():
             q = {name: prepare_queries(e['question'], queries, a.original_question, name == 'original')
                  for name, queries in q.items()}
             sets.append(q)
+        if a.information_controls:
+            sets = load_conditions(json.loads(annotation_raw), examples)
         if any(set(q) != set(sets[0]) for q in sets):
             raise ValueError('Oracle/LLM annotations must cover every question')
         if answers is not None:
@@ -319,7 +331,9 @@ def main():
                                fusion_source_sha256=hashlib.sha256(Path(__file__).with_name('query_fusion.py').read_bytes()).hexdigest(),
                                **metric_contract(examples[0]['evidence_level']),
                                metric_source_sha256=hashlib.sha256(Path(__file__).with_name('evidence_metrics.py').read_bytes()).hexdigest(),
-                               annotation_sha256=hashlib.sha256(a.queries.read_bytes()).hexdigest() if a.queries else None,
+                               annotation_sha256=hashlib.sha256(annotation_raw).hexdigest() if annotation_raw is not None else None,
+                               information_control_protocol=PROTOCOL if a.information_controls else None,
+                               information_control_source_sha256=hashlib.sha256(Path(__file__).with_name('information_controls.py').read_bytes()).hexdigest(),
                                reader_schema_version=READER_SCHEMA_VERSION,
                                reader_config=reader_config,
                                reader_config_sha256=digest(reader_config) if reader_config is not None else None,
