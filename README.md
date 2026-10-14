@@ -156,3 +156,5 @@ The matrix also exposes [query fusion and original-question retention controls](
 [Bound reader requests](experiments/016_reader_answer_provenance.md) tie answer predictions to their exact declared question, context, model, prompt and settings. Use `scripts/export_reader_requests.py` and a versioned answer bundle; bare answer maps are no longer accepted.
 
 [Information-controlled queries](experiments/018_information_controlled_queries.md) compare the original question and a shared decomposition, each with and without supplied bridge entities. `--information-controls` requires reviewed annotations for every evaluated question and reports paired contrasts and interactions. A runnable synthetic demo is included; it is not benchmark evidence.
+
+The [first real information-control pilot](results/information-pilot/README.md) records four BM25 runs on eight source-checked, agent-annotated HotpotQA development questions, with all candidate exclusions, frozen inputs and reproduction scripts. It is exploratory; independent annotation review and broader evaluation remain outstanding.

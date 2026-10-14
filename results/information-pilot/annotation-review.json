@@ -1,0 +1,318 @@
+{
+  "reviewer": "Codex agent; same author and checker, not independent human review",
+  "question_stage_sha256": "319e65a00315f50bd92f37c8042196ae054d1746f6942cd3b08c3f4fd5b7b85c",
+  "candidate_count": 12,
+  "included_count": 8,
+  "excluded_count": 4,
+  "candidates": [
+    {
+      "candidate_order": 0,
+      "source_index": 1,
+      "example_id": "5a8c7595554299585d9e36b6",
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Who portrayed Corliss Archer in the film Kiss and Tell?",
+        "What government position was held by {performer}?"
+      ],
+      "slot": "performer",
+      "description": "the woman who portrayed Corliss Archer in the film Kiss and Tell",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "Shirley Temple",
+      "source_citations": [
+        {
+          "title": "Kiss and Tell (1945 film)",
+          "sentence_id": 0,
+          "text": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer."
+        }
+      ],
+      "ambiguity_note": "The supporting biography lists multiple government offices; retain the benchmark gold target and support labels.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 1,
+      "source_index": 2,
+      "example_id": "5a85ea095542994775f606a8",
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "question_stage_decision": "exclude",
+      "question_stage_reason": "Constraint-based series identification; no clearly separable named intermediate entity from the question.",
+      "decision": "exclude",
+      "reason": "Constraint-based series identification; no clearly separable named intermediate entity from the question."
+    },
+    {
+      "candidate_order": 2,
+      "source_index": 4,
+      "example_id": "5a8e3ea95542995a26add48d",
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Who directed the romantic comedy Big Stone Gap?",
+        "In what New York city is {director} based?"
+      ],
+      "slot": "director",
+      "description": "the director of the romantic comedy Big Stone Gap",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "Adriana Trigiani",
+      "source_citations": [
+        {
+          "title": "Big Stone Gap (film)",
+          "sentence_id": 0,
+          "text": "Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society."
+        }
+      ],
+      "ambiguity_note": "The benchmark answer combines a neighborhood and city; original wording and labels are retained.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 3,
+      "source_index": 5,
+      "example_id": "5abd94525542992ac4f382d2",
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Which South Korean boy group released the debut album 2014 S/S?",
+        "Who formed {group}?"
+      ],
+      "slot": "group",
+      "description": "the South Korean boy group whose debut album is 2014 S/S",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "Winner",
+      "source_citations": [
+        {
+          "title": "2014 S/S",
+          "sentence_id": 0,
+          "text": "2014 S/S is the debut album of South Korean group WINNER."
+        }
+      ],
+      "ambiguity_note": "The album paragraph also mentions the record label in an unannotated sentence. Exact annotated support, not necessity of two hops, is measured.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 4,
+      "source_index": 6,
+      "example_id": "5a85b2d95542997b5ce40028",
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "question_stage_decision": "exclude",
+      "question_stage_reason": "Person identification by occupation/stage name; no clearly separable named intermediate entity from the question.",
+      "decision": "exclude",
+      "reason": "Person identification by occupation/stage name; no clearly separable named intermediate entity from the question."
+    },
+    {
+      "candidate_order": 5,
+      "source_index": 7,
+      "example_id": "5a87ab905542996e4f3088c1",
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "In which arena did the Lewiston Maineiacs play their home games?",
+        "How many people can {arena} seat?"
+      ],
+      "slot": "arena",
+      "description": "the arena where the Lewiston Maineiacs played their home games",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "Androscoggin Bank Colisée",
+      "source_citations": [
+        {
+          "title": "Lewiston Maineiacs",
+          "sentence_id": 1,
+          "text": " The team played its home games at the Androscoggin Bank Colisée."
+        }
+      ],
+      "ambiguity_note": "The arena paragraph distinguishes total capacity from seated capacity; original wording and labels are retained.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 6,
+      "source_index": 8,
+      "example_id": "5a7bbb64554299042af8f7cc",
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "question_stage_decision": "exclude",
+      "question_stage_reason": "Explicit age comparison despite dataset bridge label; outside the hidden-entity protocol.",
+      "decision": "exclude",
+      "reason": "Explicit age comparison despite dataset bridge label; outside the hidden-entity protocol."
+    },
+    {
+      "candidate_order": 7,
+      "source_index": 10,
+      "example_id": "5a7166395542994082a3e814",
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Which university has its main campus in Lawrence, Kansas and branch campuses in the Kansas City metropolitan area?",
+        "What is the name of the fight song of {university}?"
+      ],
+      "slot": "university",
+      "description": "the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "University of Kansas",
+      "source_citations": [
+        {
+          "title": "University of Kansas",
+          "sentence_id": 1,
+          "text": " The main campus in Lawrence, one of the largest college towns in Kansas, is on Mount Oread, the highest elevation in Lawrence."
+        },
+        {
+          "title": "University of Kansas",
+          "sentence_id": 2,
+          "text": " Two branch campuses are in the Kansas City metropolitan area: the Edwards Campus in Overland Park, and the university's medical school and hospital in Kansas City."
+        }
+      ],
+      "ambiguity_note": "The question does not uniquely specify a fight song; retain the benchmark Kansas Song support labels.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 8,
+      "source_index": 11,
+      "example_id": "5a877e5d5542993e715abf7d",
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Which film stars Nicolas Cage and Téa Leoni?",
+        "Which screenwriter with credits for Evolution co-wrote {film}?"
+      ],
+      "slot": "film",
+      "description": "a film starring Nicolas Cage and Téa Leoni",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "The Family Man",
+      "source_citations": [
+        {
+          "title": "The Family Man",
+          "sentence_id": 0,
+          "text": "The Family Man is a 2000 American romantic comedy-drama film directed by Brett Ratner, written by David Diamond and David Weissman, and starring Nicolas Cage and Téa Leoni."
+        }
+      ],
+      "ambiguity_note": "The film names two co-writers; the supplied David Weissman paragraph establishes the Evolution connection. No general answer-uniqueness claim.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 9,
+      "source_index": 12,
+      "example_id": "5ab3b0bf5542992ade7c6e39",
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Which movie stars Arnold Schwarzenegger as a former New York Police detective?",
+        "In what year did Guns N Roses perform a promo for {film}?"
+      ],
+      "slot": "film",
+      "description": "a movie starring Arnold Schwarzenegger as a former New York Police detective",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "End of Days",
+      "source_citations": [
+        {
+          "title": "End of Days (film)",
+          "sentence_id": 1,
+          "text": " The film follows former New York Police Department detective Jericho Cane (Schwarzenegger) after he saves a banker (Byrne) from an assassin, finds himself embroiled in a religious conflict, and must protect an innocent young woman (Tunney) who is chosen by evil forces to conceive the Antichrist with Satan."
+        }
+      ],
+      "ambiguity_note": "The source links a song release/promotion rather than a literal live performance; retain benchmark wording and support labels.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 10,
+      "source_index": 14,
+      "example_id": "5ab6d09255429954757d337d",
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "Which football manager recruited David Beckham?",
+        "During what timeframe did {manager} manage Manchester United?"
+      ],
+      "slot": "manager",
+      "description": "the football manager who recruited David Beckham",
+      "decision": "include",
+      "reason": "Named intermediate entity is supported by the supplied gold context and differs from the final answer.",
+      "intermediate_entity": "Alex Ferguson",
+      "source_citations": [
+        {
+          "title": "1995–96 Manchester United F.C. season",
+          "sentence_id": 2,
+          "text": " Their triumph was made all the more remarkable by the fact that Alex Ferguson had sold experienced players Paul Ince, Mark Hughes and Andrei Kanchelskis before the start of the season, and not made any major signings."
+        },
+        {
+          "title": "1995–96 Manchester United F.C. season",
+          "sentence_id": 3,
+          "text": " Instead, he had drafted in young players like Nicky Butt, David Beckham, Paul Scholes and the Neville brothers, Gary and Phil."
+        }
+      ],
+      "ambiguity_note": "The source describes drafting in young players, including Beckham; recruited is the benchmark wording.",
+      "checks": {
+        "template_and_description_frozen_from_question_stage": true,
+        "source_coordinates_verified": true,
+        "intermediate_entity_not_final_answer": true,
+        "independent_human_review": false
+      }
+    },
+    {
+      "candidate_order": 11,
+      "source_index": 15,
+      "example_id": "5a75e05c55429976ec32bc5f",
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "question_stage_decision": "provisional_include",
+      "question_stage_reason": "Explicit or implicit intermediate entity followed by a target attribute.",
+      "steps": [
+        "In which country is Brown State Fishing Lake?",
+        "How many inhabitants does {place} have?"
+      ],
+      "slot": "place",
+      "description": "the country containing Brown State Fishing Lake",
+      "decision": "exclude",
+      "reason": "Question asks for a country, but gold evidence/answer concern Brown County, Kansas. Exclude rather than silently repair the question.",
+      "source_check": {
+        "title": "Brown State Fishing Lake",
+        "sentence_id": 0,
+        "text": "Brown State Fishing Lake (sometimes also known as Brown State Fishing Lake And Wildlife Area) is a protected area in Brown County, Kansas in the United States."
+      }
+    }
+  ]
+}

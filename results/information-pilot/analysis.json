@@ -1,0 +1,945 @@
+{
+  "interpretation": "Exploratory same-agent-annotated development pilot; no independent review or held-out claim",
+  "candidate_count": 12,
+  "included_count": 8,
+  "excluded_count": 4,
+  "reader_inference": false,
+  "runs": {
+    "max-b128": {
+      "examples": 8,
+      "cells": 96,
+      "units": {
+        "passage": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.5833333333333334,
+              "complete_evidence": 0.5,
+              "context_cost": 97.125
+            },
+            "decomposition": {
+              "evidence_recall": 0.5,
+              "complete_evidence": 0.375,
+              "context_cost": 96.875
+            },
+            "original_bridge": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 103
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.75,
+              "complete_evidence": 0.5,
+              "context_cost": 106.125
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.08333333333333334,
+              "percentile_95_interval": [
+                -0.20833333333333331,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": 0.04166666666666666,
+              "percentile_95_interval": [
+                -0.08333333333333334,
+                0.16666666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.0,
+                0.375
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.25,
+              "percentile_95_interval": [
+                0.041666666666666664,
+                0.5
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.041666666666666664,
+                0.25
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "sentence": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 107.75
+            },
+            "decomposition": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.375,
+              "context_cost": 108.125
+            },
+            "original_bridge": {
+              "evidence_recall": 0.75,
+              "complete_evidence": 0.5,
+              "context_cost": 114.75
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.375,
+              "context_cost": 109.125
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.04166666666666667,
+              "percentile_95_interval": [
+                -0.125,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.020833333333333336,
+              "percentile_95_interval": [
+                -0.20833333333333331,
+                0.16666666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.02083333333333333,
+              "percentile_95_interval": [
+                -0.16666666666666669,
+                0.20833333333333331
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.041666666666666664,
+              "percentile_95_interval": [
+                -0.14583333333333334,
+                0.22916666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.020833333333333336,
+              "percentile_95_interval": [
+                -0.1875,
+                0.20833333333333334
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "window": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.5208333333333334,
+              "complete_evidence": 0.375,
+              "context_cost": 114.5
+            },
+            "decomposition": {
+              "evidence_recall": 0.47916666666666663,
+              "complete_evidence": 0.25,
+              "context_cost": 114.25
+            },
+            "original_bridge": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.5,
+              "context_cost": 113.5
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.7916666666666666,
+              "complete_evidence": 0.625,
+              "context_cost": 105.25
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.04166666666666667,
+              "percentile_95_interval": [
+                -0.125,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": 0.10416666666666666,
+              "percentile_95_interval": [
+                0.0,
+                0.22916666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.16666666666666666,
+              "percentile_95_interval": [
+                0.0,
+                0.3333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.3125,
+              "percentile_95_interval": [
+                0.125,
+                0.5416666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.14583333333333334,
+              "percentile_95_interval": [
+                0.041666666666666664,
+                0.2916666666666667
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        }
+      }
+    },
+    "max-b512": {
+      "examples": 8,
+      "cells": 96,
+      "units": {
+        "passage": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 370.875
+            },
+            "decomposition": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.625,
+              "context_cost": 369.5
+            },
+            "original_bridge": {
+              "evidence_recall": 1.0,
+              "complete_evidence": 1,
+              "context_cost": 355.125
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 1.0,
+              "complete_evidence": 1,
+              "context_cost": 367.5
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": 0.020833333333333336,
+              "percentile_95_interval": [
+                -0.125,
+                0.1875
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": 0.0,
+              "percentile_95_interval": [
+                0.0,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.2916666666666667,
+              "percentile_95_interval": [
+                0.08333333333333334,
+                0.5833333333333334
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.27083333333333337,
+              "percentile_95_interval": [
+                0.0625,
+                0.5416666666666667
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": -0.020833333333333336,
+              "percentile_95_interval": [
+                -0.1875,
+                0.125
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "sentence": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 125.5
+            },
+            "decomposition": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.375,
+              "context_cost": 122.25
+            },
+            "original_bridge": {
+              "evidence_recall": 0.7916666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 128.125
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.375,
+              "context_cost": 117.875
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.04166666666666667,
+              "percentile_95_interval": [
+                -0.125,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.0625,
+              "percentile_95_interval": [
+                -0.22916666666666666,
+                0.08333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.06249999999999999,
+              "percentile_95_interval": [
+                -0.08333333333333334,
+                0.22916666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.041666666666666664,
+              "percentile_95_interval": [
+                -0.14583333333333334,
+                0.22916666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": -0.02083333333333333,
+              "percentile_95_interval": [
+                -0.20833333333333331,
+                0.16666666666666669
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "window": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 251.75
+            },
+            "decomposition": {
+              "evidence_recall": 0.6458333333333334,
+              "complete_evidence": 0.375,
+              "context_cost": 251
+            },
+            "original_bridge": {
+              "evidence_recall": 0.8333333333333334,
+              "complete_evidence": 0.75,
+              "context_cost": 244.875
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.9166666666666666,
+              "complete_evidence": 0.875,
+              "context_cost": 251.125
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.06250000000000001,
+              "percentile_95_interval": [
+                -0.2916666666666667,
+                0.14583333333333331
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": 0.08333333333333334,
+              "percentile_95_interval": [
+                0.0,
+                0.25
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.0,
+                0.375
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.27083333333333337,
+              "percentile_95_interval": [
+                0.08333333333333334,
+                0.4791666666666667
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.14583333333333337,
+              "percentile_95_interval": [
+                -0.10416666666666666,
+                0.41666666666666674
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        }
+      }
+    },
+    "rrf-b128": {
+      "examples": 8,
+      "cells": 96,
+      "units": {
+        "passage": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.5833333333333334,
+              "complete_evidence": 0.5,
+              "context_cost": 97.125
+            },
+            "decomposition": {
+              "evidence_recall": 0.3958333333333333,
+              "complete_evidence": 0.125,
+              "context_cost": 95.5
+            },
+            "original_bridge": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 103
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.5625,
+              "complete_evidence": 0.375,
+              "context_cost": 99.625
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.1875,
+              "percentile_95_interval": [
+                -0.3333333333333333,
+                -0.04166666666666667
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.14583333333333334,
+              "percentile_95_interval": [
+                -0.33333333333333337,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.0,
+                0.375
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.16666666666666669,
+              "percentile_95_interval": [
+                -0.041666666666666664,
+                0.4583333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.04166666666666667,
+              "percentile_95_interval": [
+                -0.08333333333333333,
+                0.16666666666666669
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "sentence": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 107.75
+            },
+            "decomposition": {
+              "evidence_recall": 0.5,
+              "complete_evidence": 0.125,
+              "context_cost": 107.125
+            },
+            "original_bridge": {
+              "evidence_recall": 0.75,
+              "complete_evidence": 0.5,
+              "context_cost": 114.75
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.25,
+              "context_cost": 111
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.22916666666666669,
+              "percentile_95_interval": [
+                -0.39583333333333337,
+                -0.0625
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.0625,
+              "percentile_95_interval": [
+                -0.2296875,
+                0.08333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.02083333333333333,
+              "percentile_95_interval": [
+                -0.16666666666666669,
+                0.20833333333333331
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.1875,
+              "percentile_95_interval": [
+                0.041666666666666664,
+                0.3333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.16666666666666669,
+              "percentile_95_interval": [
+                0.0,
+                0.41666666666666663
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "window": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.5208333333333334,
+              "complete_evidence": 0.375,
+              "context_cost": 114.5
+            },
+            "decomposition": {
+              "evidence_recall": 0.3958333333333333,
+              "complete_evidence": 0,
+              "context_cost": 109.75
+            },
+            "original_bridge": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.5,
+              "context_cost": 113.5
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.4375,
+              "complete_evidence": 0,
+              "context_cost": 112.875
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.125,
+              "percentile_95_interval": [
+                -0.37500000000000006,
+                0.14583333333333331
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.25,
+              "percentile_95_interval": [
+                -0.4375,
+                -0.08281250000000286
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.16666666666666666,
+              "percentile_95_interval": [
+                0.0,
+                0.3333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.041666666666666664,
+              "percentile_95_interval": [
+                0.0,
+                0.125
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": -0.125,
+              "percentile_95_interval": [
+                -0.3125,
+                0.06249999999999999
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        }
+      }
+    },
+    "rrf-b512": {
+      "examples": 8,
+      "cells": 96,
+      "units": {
+        "passage": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 370.875
+            },
+            "decomposition": {
+              "evidence_recall": 0.625,
+              "complete_evidence": 0.375,
+              "context_cost": 389.75
+            },
+            "original_bridge": {
+              "evidence_recall": 1.0,
+              "complete_evidence": 1,
+              "context_cost": 355.125
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.9166666666666666,
+              "complete_evidence": 0.875,
+              "context_cost": 380.75
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.08333333333333334,
+              "percentile_95_interval": [
+                -0.27083333333333337,
+                0.125
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.08333333333333334,
+              "percentile_95_interval": [
+                -0.25,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.2916666666666667,
+              "percentile_95_interval": [
+                0.08333333333333334,
+                0.5833333333333334
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.2916666666666667,
+              "percentile_95_interval": [
+                -0.0421875,
+                0.5833333333333334
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": -6.938893903907228e-18,
+              "percentile_95_interval": [
+                -0.27083333333333337,
+                0.25
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "sentence": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7291666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 125.5
+            },
+            "decomposition": {
+              "evidence_recall": 0.5,
+              "complete_evidence": 0.125,
+              "context_cost": 125
+            },
+            "original_bridge": {
+              "evidence_recall": 0.7916666666666666,
+              "complete_evidence": 0.5,
+              "context_cost": 128.125
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.6875,
+              "complete_evidence": 0.25,
+              "context_cost": 134.125
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.22916666666666669,
+              "percentile_95_interval": [
+                -0.39583333333333337,
+                -0.0625
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.10416666666666667,
+              "percentile_95_interval": [
+                -0.25,
+                0.0
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.06249999999999999,
+              "percentile_95_interval": [
+                -0.08333333333333334,
+                0.22916666666666666
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.1875,
+              "percentile_95_interval": [
+                0.041666666666666664,
+                0.3333333333333333
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.0,
+                0.2916666666666667
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        },
+        "window": {
+          "conditions": {
+            "original": {
+              "evidence_recall": 0.7083333333333334,
+              "complete_evidence": 0.625,
+              "context_cost": 251.75
+            },
+            "decomposition": {
+              "evidence_recall": 0.4375,
+              "complete_evidence": 0,
+              "context_cost": 260.25
+            },
+            "original_bridge": {
+              "evidence_recall": 0.8333333333333334,
+              "complete_evidence": 0.75,
+              "context_cost": 244.875
+            },
+            "decomposition_bridge": {
+              "evidence_recall": 0.5833333333333334,
+              "complete_evidence": 0.25,
+              "context_cost": 259.625
+            }
+          },
+          "effects": {
+            "decomposition_without_bridge": {
+              "mean_difference": -0.27083333333333337,
+              "percentile_95_interval": [
+                -0.5208333333333334,
+                0.0005208333333304907
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "decomposition_with_bridge": {
+              "mean_difference": -0.25,
+              "percentile_95_interval": [
+                -0.4375,
+                -0.08281250000000286
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_without_decomposition": {
+              "mean_difference": 0.125,
+              "percentile_95_interval": [
+                0.0,
+                0.375
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bridge_with_decomposition": {
+              "mean_difference": 0.14583333333333334,
+              "percentile_95_interval": [
+                0.0,
+                0.33333333333333337
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "interaction": {
+              "mean_difference": 0.020833333333333343,
+              "percentile_95_interval": [
+                -0.1875,
+                0.25
+              ],
+              "examples": 8,
+              "resamples": 2000,
+              "seed": 42
+            }
+          }
+        }
+      }
+    }
+  }
+}
