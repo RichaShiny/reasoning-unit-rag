@@ -1,0 +1,58 @@
+{
+  "status": "exploratory development pilot; not paper-ready evidence",
+  "date": "2026-10-14",
+  "source_git_commit": "63d41e04853aa807cb85622d357086298b539076",
+  "input_source": "results/replication-100/examples.json",
+  "source_sha256": "69b377c6ecbafd65595978d346d0fc274d79edf8ce53ad26efa4ed822d406a84",
+  "selection": "First 12 records labeled bridge, preserving order in the committed 100-question replication sample; no retrieval outcomes used.",
+  "candidate_count": 12,
+  "included_count": 8,
+  "candidate_ids": [
+    "5a8c7595554299585d9e36b6",
+    "5a85ea095542994775f606a8",
+    "5a8e3ea95542995a26add48d",
+    "5abd94525542992ac4f382d2",
+    "5a85b2d95542997b5ce40028",
+    "5a87ab905542996e4f3088c1",
+    "5a7bbb64554299042af8f7cc",
+    "5a7166395542994082a3e814",
+    "5a877e5d5542993e715abf7d",
+    "5ab3b0bf5542992ade7c6e39",
+    "5ab6d09255429954757d337d",
+    "5a75e05c55429976ec32bc5f"
+  ],
+  "included_ids": [
+    "5a8c7595554299585d9e36b6",
+    "5a8e3ea95542995a26add48d",
+    "5abd94525542992ac4f382d2",
+    "5a87ab905542996e4f3088c1",
+    "5a7166395542994082a3e814",
+    "5a877e5d5542993e715abf7d",
+    "5ab3b0bf5542992ade7c6e39",
+    "5ab6d09255429954757d337d"
+  ],
+  "annotation_review": "same-agent source check; independent human review pending",
+  "retrieval_scope": "per-question provided HotpotQA distractor candidates",
+  "dataset_scope": "previously inspected first-100 development sample; 8 eligible questions from 12 bridge-labeled candidates",
+  "retriever": "bm25",
+  "fusion": [
+    "max",
+    "rrf"
+  ],
+  "rrf_k": 60,
+  "top_k": 5,
+  "context_budgets": [
+    128,
+    512
+  ],
+  "budget_unit": "words",
+  "bootstrap_resamples": 2000,
+  "seed": 42,
+  "reader_inference": false,
+  "locked_inputs": {
+    "question-stage-review.json": "319e65a00315f50bd92f37c8042196ae054d1746f6942cd3b08c3f4fd5b7b85c",
+    "annotation-review.json": "c34b8c80283f60f461695336a96918e927ac3d91e9470b35959f5f20d0f0de36",
+    "examples.json": "352afe554185de5362cbb9a62c446d03287f0efd088613bf29238b2b07371544",
+    "annotations.json": "6d014bf672c13dc7f687ac4630151e212ffb3e04bd466030beeda8abaf1aaf7a"
+  }
+}

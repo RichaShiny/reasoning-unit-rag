@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "examples": {
+    "5a8c7595554299585d9e36b6": {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "steps": [
+        "Who portrayed Corliss Archer in the film Kiss and Tell?",
+        "What government position was held by {performer}?"
+      ],
+      "bridges": {
+        "performer": {
+          "description": "the woman who portrayed Corliss Archer in the film Kiss and Tell",
+          "entity": "Shirley Temple"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5a8e3ea95542995a26add48d": {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "steps": [
+        "Who directed the romantic comedy Big Stone Gap?",
+        "In what New York city is {director} based?"
+      ],
+      "bridges": {
+        "director": {
+          "description": "the director of the romantic comedy Big Stone Gap",
+          "entity": "Adriana Trigiani"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5abd94525542992ac4f382d2": {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "steps": [
+        "Which South Korean boy group released the debut album 2014 S/S?",
+        "Who formed {group}?"
+      ],
+      "bridges": {
+        "group": {
+          "description": "the South Korean boy group whose debut album is 2014 S/S",
+          "entity": "Winner"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5a87ab905542996e4f3088c1": {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "steps": [
+        "In which arena did the Lewiston Maineiacs play their home games?",
+        "How many people can {arena} seat?"
+      ],
+      "bridges": {
+        "arena": {
+          "description": "the arena where the Lewiston Maineiacs played their home games",
+          "entity": "Androscoggin Bank Colisée"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5a7166395542994082a3e814": {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "steps": [
+        "Which university has its main campus in Lawrence, Kansas and branch campuses in the Kansas City metropolitan area?",
+        "What is the name of the fight song of {university}?"
+      ],
+      "bridges": {
+        "university": {
+          "description": "the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area",
+          "entity": "University of Kansas"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5a877e5d5542993e715abf7d": {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+      "steps": [
+        "Which film stars Nicolas Cage and Téa Leoni?",
+        "Which screenwriter with credits for Evolution co-wrote {film}?"
+      ],
+      "bridges": {
+        "film": {
+          "description": "a film starring Nicolas Cage and Téa Leoni",
+          "entity": "The Family Man"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5ab3b0bf5542992ade7c6e39": {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "steps": [
+        "Which movie stars Arnold Schwarzenegger as a former New York Police detective?",
+        "In what year did Guns N Roses perform a promo for {film}?"
+      ],
+      "bridges": {
+        "film": {
+          "description": "a movie starring Arnold Schwarzenegger as a former New York Police detective",
+          "entity": "End of Days"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    },
+    "5ab6d09255429954757d337d": {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "steps": [
+        "Which football manager recruited David Beckham?",
+        "During what timeframe did {manager} manage Manchester United?"
+      ],
+      "bridges": {
+        "manager": {
+          "description": "the football manager who recruited David Beckham",
+          "entity": "Alex Ferguson"
+        }
+      },
+      "provenance": {
+        "author": "Codex agent; pending independent human review",
+        "source": "Committed HotpotQA replication-100 snapshot; exact gold references in results/information-pilot/annotation-review.json"
+      }
+    }
+  }
+}
